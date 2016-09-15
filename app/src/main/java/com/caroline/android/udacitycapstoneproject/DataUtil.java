@@ -21,7 +21,7 @@ public class DataUtil {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
 
-        String forecastJsonStr = null;
+        String movieJsonStr = null;
 
         try {
 
@@ -33,7 +33,7 @@ public class DataUtil {
             InputStream inputStream = urlConnection.getInputStream();
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
-                forecastJsonStr = null;
+                movieJsonStr = null;
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -44,14 +44,14 @@ public class DataUtil {
             }
 
             if (buffer.length() == 0) {
-                forecastJsonStr = null;
+                movieJsonStr = null;
             }
-            forecastJsonStr = buffer.toString();
+            movieJsonStr = buffer.toString();
 
 
         } catch (IOException e) {
             Log.e("DataUtil", "Error ", e);
-            forecastJsonStr = null;
+            movieJsonStr = null;
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -64,6 +64,6 @@ public class DataUtil {
                 }
             }
         }
-        return forecastJsonStr;
+        return movieJsonStr;
     }
 }

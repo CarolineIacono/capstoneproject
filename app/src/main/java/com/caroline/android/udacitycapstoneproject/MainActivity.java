@@ -1,6 +1,5 @@
 package com.caroline.android.udacitycapstoneproject;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,12 +8,12 @@ import android.view.MenuInflater;
 /**
  * Created by carolinestewart on 6/7/16.
  */
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener, OnFavoriteListener {
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private GridFragment gridFragment;
-
     private boolean twoPane;
+    private RecyclerViewFragment recyclerFragment;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,8 +21,8 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
 
 
         setContentView(R.layout.movielayout);
-        gridFragment = new GridFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, gridFragment).commit();
+        recyclerFragment = new RecyclerViewFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, recyclerFragment).commit();
         if (findViewById(R.id.detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -32,8 +31,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
             twoPane = true;
         }
     }
-
-
 
 
     @Override
@@ -47,29 +44,17 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     @Override
     public void onMovieClick(MovieItem movieItem) {
 
-        if (twoPane) {
-            DetailFragment fragment = new DetailFragment(movieItem);
-            fragment.setFavoriteListener(this);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.detail_container, fragment)
-                    .commit();
-        } else {
-            Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_MOVIE, movieItem);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onUpdateFavorite(String favorite, boolean isFavorited) {
-
-        gridFragment.updateFavorite(favorite, isFavorited);
+//        if (twoPane) {
+//            DetailFragment fragment = new DetailFragment(movieItem);
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(R.id.detail_container, fragment)
+//                    .commit();
+//        } else {
+//            Intent intent = new Intent(this, DetailActivity.class);
+//            intent.putExtra(DetailActivity.EXTRA_MOVIE, movieItem);
+//            startActivity(intent);
+//        }
     }
 
 
-    public interface OnFragmentInteractionListener {
-
-        void onMovieClick(MovieItem movieItem);
-
-    }
 }
