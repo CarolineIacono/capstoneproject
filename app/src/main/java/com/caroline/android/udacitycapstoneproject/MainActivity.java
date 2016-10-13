@@ -2,17 +2,18 @@ package com.caroline.android.udacitycapstoneproject;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 /**
  * Created by carolinestewart on 6/7/16.
  */
-public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean twoPane;
-    private RecyclerViewFragment recyclerFragment;
+    private android.support.v7.widget.RecyclerView recyclerView;
 
 
     @Override
@@ -20,9 +21,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.movielayout);
-        recyclerFragment = new RecyclerViewFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, recyclerFragment).commit();
+        setContentView(R.layout.activity_main_movie_list);
+        recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
+        RecyclerView.Adapter adapter = new MovieListAdapter(this);
+
+        //get rid of fragment
+
+//        recyclerFragment = new RecyclerView();
+//        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, recyclerFragment).commit();
         if (findViewById(R.id.detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
@@ -41,20 +47,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public void onMovieClick(MovieItem movieItem) {
 
-//        if (twoPane) {
-//            DetailFragment fragment = new DetailFragment(movieItem);
-//            getSupportFragmentManager().beginTransaction()
-//                    .replace(R.id.detail_container, fragment)
-//                    .commit();
-//        } else {
-//            Intent intent = new Intent(this, DetailActivity.class);
-//            intent.putExtra(DetailActivity.EXTRA_MOVIE, movieItem);
-//            startActivity(intent);
-//        }
-    }
 
 
 }
