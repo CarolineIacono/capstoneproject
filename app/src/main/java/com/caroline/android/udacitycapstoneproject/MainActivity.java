@@ -1,13 +1,13 @@
 package com.caroline.android.udacitycapstoneproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
-
-import java.util.List;
+import android.view.View;
 
 /**
  * Created by carolinestewart on 6/7/16.
@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean twoPane;
     private android.support.v7.widget.RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
 
 
     @Override
@@ -32,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        adapter = new MovieListAdapter(this);
+        RecyclerView.Adapter adapter = new MovieListAdapter(this);
         recyclerView.setAdapter(adapter);
-
-
 
 
         if (findViewById(R.id.detail_container) != null) {
@@ -47,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void setMovieViewData(List<MovieItem> movieItems) {
-        this.adapter.setMovieViewData(movieItems);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,12 +53,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void movieClick (View view) {
+        Intent intent = new Intent (this, DetailActivity.class);
+        startActivity(intent);
     }
 
-
-
 }
+
+

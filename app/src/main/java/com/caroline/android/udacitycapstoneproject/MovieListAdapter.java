@@ -28,21 +28,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         DataUtil.getMovieData(this);
     }
 
-    public void setMovieViewData(ArrayList<MovieItem> movieViewData) {
-        this.movieViewData = movieViewData;
-        notifyDataSetChanged();
-    }
-
-
 
     @Override
     public MovieListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         //create view
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_main_movie_list, null);
-        view.setOnClickListener((View.OnClickListener) context);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardlayout, viewGroup, false);
         MovieListAdapter.ViewHolder viewHolder = new MovieListAdapter.ViewHolder(view);
         return viewHolder;
     }
+
+
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
