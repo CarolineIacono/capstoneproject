@@ -2,6 +2,7 @@ package com.caroline.android.udacitycapstoneproject;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,13 +23,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_main_movie_list);
+
         recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+
         RecyclerView.Adapter adapter = new MovieListAdapter(this);
+        recyclerView.setAdapter(adapter);
 
-        //get rid of fragment
 
-//        recyclerFragment = new RecyclerView();
-//        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, recyclerFragment).commit();
+
+
         if (findViewById(R.id.detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).

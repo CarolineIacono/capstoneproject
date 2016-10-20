@@ -5,4 +5,5 @@
     android:id="@+id/movieList">
 
 
+
 </android.support.v7.widget.RecyclerView>

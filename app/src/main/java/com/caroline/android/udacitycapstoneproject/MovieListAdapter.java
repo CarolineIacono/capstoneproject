@@ -33,12 +33,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         notifyDataSetChanged();
     }
 
-
+//
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        this.setArguments(new Bundle());
 //        movieItems = new ArrayList<>();
+//    }
 
     @Override
     public MovieListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

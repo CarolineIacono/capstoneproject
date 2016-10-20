@@ -25,7 +25,7 @@ public class DataUtil {
 
 
     public static void getMovieData(GetMovieCallback movieCallback) {
-        new MovieFetchTask(movieCallback).doInBackground(BASE_URL);
+        new MovieFetchTask(movieCallback).execute(BASE_URL);
 
     }
 
@@ -82,23 +82,22 @@ public class DataUtil {
         return movieJsonStr;
     }
 
-    public static class MovieFetchTask extends AsyncTask<String, Void, Integer> {
+    public static class MovieFetchTask extends AsyncTask<String, Void, List<MovieItem>> {
         private GetMovieCallback movieCallback;
 
         public MovieFetchTask(GetMovieCallback movieCallback) {
             MovieFetchTask.this.movieCallback = movieCallback;
         }
         @Override
-        protected Integer doInBackground(String... params) {
+        protected List<MovieItem> doInBackground(String... params) {
             String urlString = params[0];
-            movieCallback.onComplete(parseMovieItems(fetch(urlString)));
-            return 1;
+            return parseMovieItems(fetch(urlString));
 
         }
 
         @Override
-        protected void onPostExecute(Integer result) {
-
+        protected void onPostExecute(List<MovieItem> result) {
+            movieCallback.onComplete(result);
 
 
         }
@@ -113,7 +112,7 @@ public class DataUtil {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject post = response.getJSONObject(i);
                         items.add(parseSingleObject(post));
-                        //callback.oncomplete(movieItems);
+
                     }
                 }
 
