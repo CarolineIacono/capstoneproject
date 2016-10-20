@@ -33,19 +33,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         notifyDataSetChanged();
     }
 
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        this.setArguments(new Bundle());
-//        movieItems = new ArrayList<>();
-//    }
+
 
     @Override
     public MovieListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         //create view
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_main_movie_list, null);
-
+        view.setOnClickListener((View.OnClickListener) context);
         MovieListAdapter.ViewHolder viewHolder = new MovieListAdapter.ViewHolder(view);
         return viewHolder;
     }
@@ -86,10 +80,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         public void setTitleText(String titleText) {
             titleView.setText(titleText);
         }
-
         public void setYearView(String yearText) {
             yearView.setText(yearText);
         }
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -97,8 +91,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             yearView = (TextView) itemView.findViewById(R.id.year);
             posterView = (ImageView) itemView.findViewById(R.id.poster);
 
-            //pass
+
         }
+
+
     }
 
 }

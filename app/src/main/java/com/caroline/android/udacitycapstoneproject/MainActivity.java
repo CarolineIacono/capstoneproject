@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
+import java.util.List;
+
 /**
  * Created by carolinestewart on 6/7/16.
  */
@@ -15,10 +17,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean twoPane;
     private android.support.v7.widget.RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        RecyclerView.Adapter adapter = new MovieListAdapter(this);
+        adapter = new MovieListAdapter(this);
         recyclerView.setAdapter(adapter);
 
 
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void setMovieViewData(List<MovieItem> movieItems) {
+        this.adapter.setMovieViewData(movieItems);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
 
 
