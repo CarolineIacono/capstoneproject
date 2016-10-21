@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main_movie_list);
 
         recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
@@ -33,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView.Adapter adapter = new MovieListAdapter(this);
         recyclerView.setAdapter(adapter);
+
 
 
         if (findViewById(R.id.detail_container) != null) {
@@ -54,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void movieClick (View view) {
+
         Intent intent = new Intent (this, DetailActivity.class);
+
+        //intent.putExtra(DetailActivity.EXTRA_MOVIE);
         startActivity(intent);
     }
 
