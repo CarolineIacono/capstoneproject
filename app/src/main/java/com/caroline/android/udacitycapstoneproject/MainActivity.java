@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.View;
 
 /**
  * Created by carolinestewart on 6/7/16.
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean twoPane;
     private android.support.v7.widget.RecyclerView recyclerView;
+
 
 
     @Override
@@ -29,19 +29,34 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        RecyclerView.Adapter adapter = new MovieListAdapter(this);
+        RecyclerView.Adapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieClicked(MovieItem movieItem) {
+                String key = movieItem.getImdbId();
+                Intent intent = new Intent (MainActivity.this, DetailActivity.class);
+//                Bundle args = new Bundle();
+//                args.putSerializable("EXTRA_MOVIE", movieItem);
+                intent.putExtra("key", key);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(adapter);
 
 
 
-        if (findViewById(R.id.detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            twoPane = true;
-        }
+
+
+
+//        if (findViewById(R.id.detail_container) != null) {
+//            // The detail container view will be present only in the
+//            // large-screen layouts (res/values-w900dp).
+//            // If this view is present, then the
+//            // activity should be in two-pane mode.
+//            twoPane = true;
+//        }
     }
+
+
 
 
     @Override
@@ -52,13 +67,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void movieClick (View view) {
-
-        Intent intent = new Intent (this, DetailActivity.class);
-
-        //intent.putExtra(DetailActivity.EXTRA_MOVIE);
-        startActivity(intent);
-    }
 
 }
 
