@@ -24,33 +24,33 @@ public class MovieSummaryFragment extends Fragment {
 
     }
 
-//    @SuppressLint("ValidFragment")
-//    public MovieSummaryFragment(MovieSummary movieSummary) {
-//        Bundle args = new Bundle();
-//        args.putSerializable("MOVIE_SUMMARY", movieSummary);
-//        setArguments(args);
-//    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String key = getActivity().getIntent().getExtras().getString("key");
+//        String key = getActivity().getIntent().getExtras().getString("key");
+//        new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
 
-        new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
+
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        String key = getArguments().getString("key");
+        new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
 
-        final ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.details_screen, container, false);
 
-        return layout;
+        return inflater.inflate(R.layout.details_screen, container, false);
+
+
 
     }
 
 
-        public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
+
+    public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
             @Override
             protected void onPostExecute(MovieSummary movieSummary) {
                 super.onPostExecute(movieSummary);

@@ -10,8 +10,6 @@ import butterknife.ButterKnife;
  */
 public class DetailActivity extends AppCompatActivity {
 
-    private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
-    private static final String DETAIL_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/by_id/";
 
 
     @Override
@@ -19,9 +17,10 @@ public class DetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_screen);
-
+//
 //        Intent intent = getIntent();
 //        String key = intent.getExtras().getString("key");
+
         MovieSummaryFragment fragment = new MovieSummaryFragment();
         fragment.setArguments(getIntent().getExtras());
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();

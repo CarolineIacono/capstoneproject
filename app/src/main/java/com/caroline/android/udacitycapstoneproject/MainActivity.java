@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
             public void onMovieClicked(MovieItem movieItem) {
 
                 if (twoPane) {
+                    String key = movieItem.getImdbId();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", key);
                     MovieSummaryFragment fragment = new MovieSummaryFragment();
+                    fragment.setArguments(bundle);
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_container, fragment)
                             .commit();
