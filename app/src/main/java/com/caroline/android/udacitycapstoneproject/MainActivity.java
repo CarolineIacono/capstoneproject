@@ -37,14 +37,15 @@ public class MainActivity extends AppCompatActivity {
                 if (twoPane) {
                     MovieSummaryFragment fragment = new MovieSummaryFragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.detail_container, fragment)
+                            .replace(R.id.fragment_container, fragment)
                             .commit();
 
+                } else {
+                    String key = movieItem.getImdbId();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("key", key);
+                    startActivity(intent);
                 }
-                String key = movieItem.getImdbId();
-                Intent intent = new Intent (MainActivity.this, DetailActivity.class);
-                intent.putExtra("key", key);
-                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
