@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by carolinestewart on 9/12/16.
  */
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements BullshtClass.GetMovieCallback {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieInfoFetchTask.GetMovieCallback {
 
     private List<MovieItem> movieViewData;
     private Context context;
@@ -27,7 +27,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         this.context = context;
         this.movieClickListener = movieClickListener;
         this.movieViewData = new ArrayList<>();
-        BullshtClass.getMovieData(this);
+        MovieInfoFetchTask.getMovieData(this);
 
 
     }
@@ -81,12 +81,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public MovieItem movieItem;
 
         private TextView titleView;
         private TextView yearView;
         public ImageView posterView;
-
+        private TextView imdbRatingView;
+        private TextView imdbVotesView;
+        private TextView imdbLinkView;
 
 
         public void setTitleText(String titleText) {
@@ -95,6 +96,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         public void setYearView(String yearText) {
             yearView.setText(yearText);
         }
+//        public void setImdbRatingView(String imdbRatingView) {
+//            imdbRatingView.
+//        }
 
 
 
@@ -104,6 +108,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             titleView = (TextView) itemView.findViewById(R.id.title);
             yearView = (TextView) itemView.findViewById(R.id.year);
             posterView = (ImageView) itemView.findViewById(R.id.poster);
+            imdbVotesView = (TextView) itemView.findViewById(R.id.imdbVotes);
+            imdbLinkView = (TextView) itemView.findViewById(R.id.imdbLink);
+
+
 
 
 

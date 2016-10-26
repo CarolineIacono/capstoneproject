@@ -29,31 +29,30 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
 
+
         RecyclerView.Adapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
             @Override
             public void onMovieClicked(MovieItem movieItem) {
+
+                if (twoPane) {
+                    MovieSummaryFragment fragment = new MovieSummaryFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.detail_container, fragment)
+                            .commit();
+
+                }
                 String key = movieItem.getImdbId();
                 Intent intent = new Intent (MainActivity.this, DetailActivity.class);
-//                Bundle args = new Bundle();
-//                args.putSerializable("EXTRA_MOVIE", movieItem);
                 intent.putExtra("key", key);
                 startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
+        if (findViewById(R.id.fragment_container) != null) {
+            twoPane = true;
+        }
 
 
-
-
-
-
-//        if (findViewById(R.id.detail_container) != null) {
-//            // The detail container view will be present only in the
-//            // large-screen layouts (res/values-w900dp).
-//            // If this view is present, then the
-//            // activity should be in two-pane mode.
-//            twoPane = true;
-//        }
     }
 
 
