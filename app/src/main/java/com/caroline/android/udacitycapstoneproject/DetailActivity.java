@@ -1,8 +1,13 @@
 package com.caroline.android.udacitycapstoneproject;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
@@ -13,8 +18,8 @@ public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "movie";
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
-    private String key;
     private static final String DETAIL_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/by_id/";
+
 
 
 
@@ -24,75 +29,160 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_screen);
 
-
-//
-//        MovieItem movieItem = (MovieItem) getIntent().getSerializableExtra(EXTRA_MOVIE);
-//        DetailFragment detailFragment = new DetailFragment(movieItem);
+//        MovieSummaryFragment movieSummaryFragment = new MovieSummaryFragment();
 //        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.fragment_container, detailFragment);
+//        fragmentTransaction.add(R.id.fragment_container, movieSummaryFragment);
 //        fragmentTransaction.commit();
 
 
         Intent intent = getIntent();
-        Bundle args = intent.getExtras();
-        MovieItem movieItem = (MovieItem) args.getSerializable("EXTRA_MOVIE");
+
         String key = intent.getExtras().getString("key");
 
-//        new DataUtil.MovieFetchTask(DataUtil.GetMovieCallback).execute(DETAIL_URL + key);
+
+
+        new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
 
 
 
+    }
 
 
-//        TextView writer = (TextView) findViewById(R.id.writer);
-//        writer.setText(movieItem.getWriter());
-//
-//        TextView director = (TextView) findViewById(R.id.director);
-//        director.setText(movieItem.getDirector());
-//
-//        TextView actors = (TextView) findViewById(R.id.actors);
-//        actors.setText(movieItem.getActors());
-//
-//        TextView plot = (TextView) findViewById(R.id.plot);
-//        plot.setText(movieItem.getPlot());
-//
-//        TextView language = (TextView) findViewById(R.id.language);
-//        language.setText(movieItem.getLanguage());
-//
-//        TextView country = (TextView) findViewById(R.id.country);
-//        country.setText(movieItem.getCountry());
-//
-//        TextView imbdRating = (TextView) findViewById(R.id.imdbRating);
-//        imbdRating.setText(movieItem.getImdbRating());
-//
-//        TextView awards = (TextView) findViewById(R.id.awards);
-//        awards.setText(movieItem.getAwards());
-//
-//        TextView metascore = (TextView) findViewById(R.id.metascore);
-//        metascore.setText(movieItem.getMetascore());
-//
-//        TextView title = (TextView) findViewById(R.id.title);
-//        title.setText(movieItem.getTitle());
-//
-//        TextView year = (TextView) findViewById(R.id.year);
-//        year.setText(movieItem.getYear());
+    public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
+        @Override
+        protected void onPostExecute(MovieSummary movieSummary) {
+            super.onPostExecute(movieSummary);
 
+            TextView title = (TextView) findViewById(R.id.title);
+            title.setText(movieSummary.getTitle());
+        }
 
+        @Override
+        protected MovieSummary doInBackground(String... params) {
+            String urlString = params[0];
+            return parseMovieItem(DataUtil.fetch(urlString));
 
-
-
-
-
-
-
-
-        //grab the views from the detail screen layout (find ViewbyId)
-        //view.setMovie title etc.
 
 
         }
 
+
     }
+
+    private MovieSummary parseMovieItem(String result) {
+
+        try {
+            JSONObject response = new JSONObject(result);
+
+            if(response == null){
+                return null;
+            }else{
+                return parseSingleObject(response);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+
+    }
+
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        outState.putInt("stateOptions", state);
+//        super.onSaveInstanceState(outState);
+//    }
+
+    @Override
+    public void onPause() {
+
+
+        super.onPause();
+    }
+
+    private MovieSummary parseSingleObject(JSONObject post) {
+        MovieSummary item = new MovieSummary();
+
+
+        String title = post.optString("title");
+        item.setTitle(title);
+
+        String rank = post.optString("rank");
+        item.setRank(rank);
+
+        String year = post.optString("year");
+        item.setYear(year);
+
+        String poster = post.optString("poster");
+        item.setPoster(poster);
+
+        String imdbLink = post.optString("imdbLink");
+        item.setImdbLink(imdbLink);
+
+        String imdbRating = post.optString("imdbRating");
+        item.setImdbRating(imdbRating);
+
+        String imdbVotes = post.optString("imdbVotes");
+        item.setImdbVotes(imdbVotes);
+
+        String genre = post.optString("genre");
+        item.setGenre(genre);
+
+        String imdbId = post.optString("imdbId");
+        item.setImdbId(imdbId);
+
+        String rated = post.optString("rated");
+        item.setRated(rated);
+
+        String release = post.optString("released");
+        item.setReleased(release);
+
+        String director = post.optString("director");
+        item.setDirector(director);
+
+        String language = post.optString("language");
+        item.setLanguage(language);
+
+        String writer = post.optString("writer");
+        item.setWriter(writer);
+
+        String actor = post.optString("actors");
+        item.setActors(actor);
+
+        String plot = post.optString("plot");
+        item.setPlot(plot);
+
+        String country = post.optString("country");
+        item.setCountry(country);
+
+        String runtime = post.optString("runtime");
+        item.setRuntime(runtime);
+
+        String metascore = post.optString("metascore");
+        item.setMetascore(metascore);
+
+        String awards = post.optString("awards");
+        item.setAwards(awards);
+
+        return item;
+    }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
 
 
 
