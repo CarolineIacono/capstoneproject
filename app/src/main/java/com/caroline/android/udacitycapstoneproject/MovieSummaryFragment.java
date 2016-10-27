@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,6 +66,9 @@ public class MovieSummaryFragment extends Fragment {
             TextView year = (TextView) getView().findViewById(R.id.year);
             year.setText(movieSummary.getYear());
 
+            TextView genre = (TextView) getView().findViewById(R.id.genre);
+            genre.setText(movieSummary.getGenre());
+
             TextView rated = (TextView) getView().findViewById(R.id.rated);
             rated.setText(movieSummary.getRated());
 
@@ -95,6 +99,8 @@ public class MovieSummaryFragment extends Fragment {
             TextView metascore = (TextView) getView().findViewById(R.id.metascore);
             metascore.setText(movieSummary.getMetascore());
 
+            TextView language = (TextView) getView().findViewById(R.id.language);
+            language.setText((CharSequence) movieSummary.getLanguage());
         }
 
         @Override
@@ -141,12 +147,43 @@ public class MovieSummaryFragment extends Fragment {
         super.onPause();
     }
 
-    private MovieSummary parseSingleObject(JSONObject post) {
+    private MovieSummary parseSingleObject(JSONObject post) throws JSONException {
+
         MovieSummary item = new MovieSummary();
+
 
 
         String title = post.optString("title");
         item.setTitle(title);
+
+        StringBuilder sb = new StringBuilder();
+        JSONArray genre = post.optJSONArray("genre");
+        for(int i = 0; i < genre.length(); i++) {
+            String genres = (String) genre.get(i);
+            sb.append(genres);
+        }
+        item.setGenre(sb);
+
+
+
+        StringBuilder sbActor = new StringBuilder();
+        JSONArray actor = post.optJSONArray("actors");
+        for(int i = 0; i < actor.length(); i++) {
+            String actors = (String) actor.get(i);
+            sbActor.append(actors);
+        }
+        item.setActors(sbActor);
+
+        StringBuilder sbLanguage = new StringBuilder();
+        JSONArray language = post.optJSONArray("language");
+        for(int i = 0; i < language.length(); i++) {
+            String languages = (String) language.get(i);
+            sbLanguage.append(languages);
+        }
+        item.setLanguage(sbLanguage);
+
+
+
 
         String rank = post.optString("rank");
         item.setRank(rank);

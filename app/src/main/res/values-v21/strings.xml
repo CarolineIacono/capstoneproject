@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="votes">Votes</string>
-    <string name="imbd_rating">IMBD Rating</string>
-    <string name="year_made">Year Made</string>
-    <string name="year_released">Year Released</string>
-    <string name="runtime">Runtime</string>
-    <string name="genre">Genre</string>
-    <string name="writer">Writer</string>
-    <string name="plot">Plot</string>
-    <string name="actors">Actor(s)</string>
-    <string name="language_s">Language(s)</string>
-    <string name="metascore">Metascore</string>
-    <string name="awards">Awards</string>
-    <string name="country">Country</string>
-    <string name="rank">Rank</string>
+    <string name="app_name">UdacityCapstoneProject</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="action_settings">settings</string>
+    <string name="rating">Rating: </string>
+    <string name="votes">Votes: </string>
+    <string name="imbd_rating">IMBD Rating: </string>
+    <string name="year_made">Year Made: </string>
+    <string name="year_released">Year Released: </string>
+    <string name="runtime">Runtime: </string>
+    <string name="genre">Genre: </string>
+    <string name="writer">Writer: </string>
+    <string name="plot">Plot: </string>
+    <string name="actors">Actor(s): </string>
+    <string name="language_s">Language(s): </string>
+    <string name="metascore">Metascore: </string>
+    <string name="awards">Awards: </string>
+    <string name="country">Country: </string>
+    <string name="rank">Rank: </string>
     <string name="movieposter">moviePoster</string>
 </resources>

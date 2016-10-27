@@ -1,7 +1,5 @@
 package com.caroline.android.udacitycapstoneproject;
 
-import java.util.List;
-
 /**
  * Created by carolinestewart on 10/25/16.
  */
@@ -15,12 +13,12 @@ public class MovieSummary  {
     String rated;
     String released;
     String runtime;
-    String genre;
+    StringBuilder genre;
     String director;
     String writer;
-    String actors;
+    StringBuilder actors;
     String plot;
-    List<String> language;
+    StringBuilder language;
     String metascore;
     String awards;
     String poster;
@@ -88,12 +86,20 @@ public class MovieSummary  {
     }
 
 
-    public String getGenre() {
+    public StringBuilder getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(StringBuilder genre) {
         this.genre = genre;
+    }
+
+    public StringBuilder getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(StringBuilder language) {
+        this.language = language;
     }
 
 
@@ -115,11 +121,11 @@ public class MovieSummary  {
     }
 
 
-    public String getActors() {
+    public StringBuilder getActors() {
         return actors;
     }
 
-    public void setActors(String actors) {
+    public void setActors(StringBuilder actors) {
         this.actors = actors;
     }
 
@@ -133,13 +139,6 @@ public class MovieSummary  {
     }
 
 
-    public List<String> getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(List<String> language) {
-        this.language = language;
-    }
 
 
     public String getCountry() {
