@@ -1,11 +1,11 @@
 package com.caroline.android.udacitycapstoneproject;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by carolinestewart on 10/25/16.
  */
-public class MovieSummary implements Serializable {
+public class MovieSummary  {
 
     String imdbRating;
     String imdbVotes;
@@ -20,7 +20,7 @@ public class MovieSummary implements Serializable {
     String writer;
     String actors;
     String plot;
-    String language;
+    List<String> language;
     String metascore;
     String awards;
     String poster;
@@ -133,11 +133,11 @@ public class MovieSummary implements Serializable {
     }
 
 
-    public String getLanguage() {
+    public List<String> getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(List<String> language) {
         this.language = language;
     }
 

@@ -60,6 +60,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         holder.setTitleText(item.getTitle());
         holder.setYearView(item.getYear());
 
+        holder.setImdbRatingView(item.getImdbRating());
+        holder.setRankView(item.getRank());
+        holder.setImdbVotesView(item.getImdbVotes());
+//        holder.setImbdLink(item.getImdbId());
+
         Picasso.with(context)
                 .load(item.getPoster())
                 .into(holder.posterView);
@@ -85,9 +90,10 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         private TextView titleView;
         private TextView yearView;
         public ImageView posterView;
-//        private TextView imdbRatingView;
-//        private TextView imdbVotesView;
-//        private TextView imdbLinkView;
+        private TextView imdbRatingView;
+        private TextView imdbVotesView;
+        private TextView imdbLinkView;
+        private TextView rankView;
 
 
         public void setTitleText(String titleText) {
@@ -96,9 +102,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         public void setYearView(String yearText) {
             yearView.setText(yearText);
         }
-//        public void setImdbRatingView(String imdbRatingView) {
-//
-//        }
+
+        public void setRankView(String rankText) {
+            rankView.setText(rankText);
+        }
+
+        public void setImdbRatingView(String imdbRatingText) {
+            imdbRatingView.setText(imdbRatingText);
+        }
+
+        public void setImdbVotesView(String imdbText) {
+            imdbVotesView.setText(imdbText);
+        }
 
 
 
@@ -108,7 +123,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             titleView = (TextView) itemView.findViewById(R.id.title);
             yearView = (TextView) itemView.findViewById(R.id.year);
             posterView = (ImageView) itemView.findViewById(R.id.poster);
-//            imdbVotesView = (TextView) itemView.findViewById(R.id.imdbVotes);
+            imdbVotesView = (TextView) itemView.findViewById(R.id.imdbVotes);
+            rankView = (TextView) itemView.findViewById(R.id.rank);
+            imdbRatingView = (TextView) itemView.findViewById(R.id.imdbRating);
 //            imdbLinkView = (TextView) itemView.findViewById(R.id.imdbLink);
 
 

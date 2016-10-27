@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -20,12 +21,20 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private boolean twoPane;
     private android.support.v7.widget.RecyclerView recyclerView;
+    private TextView emptyStateTextView;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_movie_list);
+
+//        LinearLayout mainView = (LinearLayout) findViewById(R.id.main);
+//
+//        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+//        mainView.setEmptyView(emptyStateTextView);
+
 
         if (findViewById(R.id.detail_container) != null) {
             twoPane = true;
@@ -73,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
+//            emptyStateTextView.setText("No internet connection");
+
             Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
 
 

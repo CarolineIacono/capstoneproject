@@ -1,11 +1,9 @@
 package com.caroline.android.udacitycapstoneproject;
 
-import java.io.Serializable;
-
 /**
  * Created by carolinestewart on 5/2/16.
  */
-public class MovieItem implements Serializable {
+public class MovieItem  {
     String imdbRating;
     String imdbVotes;
     String imdbId;

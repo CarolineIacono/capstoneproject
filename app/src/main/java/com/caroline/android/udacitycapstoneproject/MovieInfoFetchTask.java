@@ -108,6 +108,7 @@ public class MovieInfoFetchTask {
         }
 
 
+
     }
 
     public interface GetMovieCallback {

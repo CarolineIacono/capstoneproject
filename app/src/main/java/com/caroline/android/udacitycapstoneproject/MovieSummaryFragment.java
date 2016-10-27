@@ -86,9 +86,6 @@ public class MovieSummaryFragment extends Fragment {
             TextView plot = (TextView) getView().findViewById(R.id.plot);
             plot.setText(movieSummary.getPlot());
 
-            TextView language = (TextView) getView().findViewById(R.id.language);
-            language.setText(movieSummary.getLanguage());
-
             TextView country = (TextView) getView().findViewById(R.id.country);
             country.setText(movieSummary.getCountry());
 
@@ -114,6 +111,7 @@ public class MovieSummaryFragment extends Fragment {
 
         try {
             JSONObject response = new JSONObject(result);
+
 
             if (response == null) {
                 return null;
@@ -180,8 +178,6 @@ public class MovieSummaryFragment extends Fragment {
         String director = post.optString("director");
         item.setDirector(director);
 
-        String language = post.optString("language");
-        item.setLanguage(language);
 
         String writer = post.optString("writer");
         item.setWriter(writer);
@@ -203,11 +199,19 @@ public class MovieSummaryFragment extends Fragment {
 
         return item;
     }
+}
 
-
-
-
-
-    }
+//
+//    private MovieSummary parseArray(JSONArray post) {
+//        MovieSummary array = new MovieSummary();
+//
+//        JSONArray languages = post.optJSONArray(Integer.parseInt("language"));
+//        int i;
+//        for (i = 0; i < languages.length(); i++) ;
+//        languages.optString(i);
+//        array
+//
+//
+//    }
 
 
