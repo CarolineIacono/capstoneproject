@@ -19,8 +19,9 @@ public class MovieInfoFetchTask {
 
 
     public static void getMovieData(GetMovieCallback movieCallback) {
-        new MovieFetchTask(movieCallback).execute(BASE_URL);
 
+
+        new MovieFetchTask(movieCallback).execute(BASE_URL);
 
     }
 
@@ -28,6 +29,8 @@ public class MovieInfoFetchTask {
         private GetMovieCallback movieCallback;
 
         public MovieFetchTask(GetMovieCallback movieCallback) {
+
+
             MovieFetchTask.this.movieCallback = movieCallback;
         }
 
@@ -35,6 +38,7 @@ public class MovieInfoFetchTask {
         @Override
         protected List<MovieItem> doInBackground(String... params) {
             String urlString = params[0];
+
             return parseMovieItems(DataUtil.fetch(urlString));
 
         }
@@ -47,7 +51,11 @@ public class MovieInfoFetchTask {
         }
 
         private List<MovieItem> parseMovieItems(String result) {
+
+
             List<MovieItem> items = null;
+
+
             try {
                 JSONArray response = new JSONArray(result);
 
@@ -92,38 +100,9 @@ public class MovieInfoFetchTask {
             String imdbVotes = post.optString("imdbVotes");
             item.setImdbVotes(imdbVotes);
 
-            String genre = post.optString("genre");
-            item.setGenre(genre);
-
             String imdbId = post.optString("imdbId");
             item.setImdbId(imdbId);
 
-            String rated = post.optString("rated");
-            item.setRated(rated);
-
-            String release = post.optString("release");
-            item.setReleased(release);
-
-            String director = post.optString("director");
-            item.setDirector(director);
-
-            String writer = post.optString("writer");
-            item.setWriter(writer);
-
-            String actor = post.optString("actors");
-            item.setActors(actor);
-
-            String plot = post.optString("plot");
-            item.setPlot(plot);
-
-            String country = post.optString("country");
-            item.setCountry(country);
-
-            String runtime = post.optString("runtime");
-            item.setRuntime(runtime);
-
-            String metascore = post.optString("metascore");
-            item.setMetascore(metascore);
 
             return item;
         }

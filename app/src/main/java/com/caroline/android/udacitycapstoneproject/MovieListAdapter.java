@@ -85,9 +85,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         private TextView titleView;
         private TextView yearView;
         public ImageView posterView;
-        private TextView imdbRatingView;
-        private TextView imdbVotesView;
-        private TextView imdbLinkView;
+//        private TextView imdbRatingView;
+//        private TextView imdbVotesView;
+//        private TextView imdbLinkView;
 
 
         public void setTitleText(String titleText) {
@@ -97,7 +97,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             yearView.setText(yearText);
         }
 //        public void setImdbRatingView(String imdbRatingView) {
-//            imdbRatingView.
+//
 //        }
 
 
@@ -108,8 +108,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
             titleView = (TextView) itemView.findViewById(R.id.title);
             yearView = (TextView) itemView.findViewById(R.id.year);
             posterView = (ImageView) itemView.findViewById(R.id.poster);
-            imdbVotesView = (TextView) itemView.findViewById(R.id.imdbVotes);
-            imdbLinkView = (TextView) itemView.findViewById(R.id.imdbLink);
+//            imdbVotesView = (TextView) itemView.findViewById(R.id.imdbVotes);
+//            imdbLinkView = (TextView) itemView.findViewById(R.id.imdbLink);
 
 
 
