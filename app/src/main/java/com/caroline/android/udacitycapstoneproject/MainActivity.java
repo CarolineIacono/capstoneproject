@@ -14,11 +14,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -39,13 +42,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected String longitudeLabel;
     protected TextView latitudeText;
     protected TextView longitudeText;
-
+    private Tracker tracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_movie_list);
 
+        //start the shared tracker and obtain the instance
+        AnalyticsApplication application = (AnalyticsApplication) getApplication();
+        tracker = application.getDefaultTracker();
+
+        //set lat and long for the Location service, call the API client
         latitudeLabel = getResources().getString(R.string.latitude_label);
         longitudeLabel = getResources().getString(R.string.longitude_label);
         latitudeText = (TextView) findViewById((R.id.latitude_text));
@@ -53,22 +61,22 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         buildGoogleApiClient();
 
-//        LinearLayout mainView = (LinearLayout) findViewById(R.id.main);
-//
-//        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
-//        mainView.setEmptyView(emptyStateTextView);
 
-
+        //check if the screen is large or small
         if (findViewById(R.id.detail_container) != null) {
             twoPane = true;
         }
 
+
+        //check if the device is connected to the internet
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
+
+        //if it's connected, set the adapter and load depending on whether it's in single or dual pane mode
 
         if (isConnected) {
 
@@ -103,16 +111,19 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             recyclerView.setAdapter(adapter);
 
+            //if it's not connected to the internet, let the user know
+
         } else {
-//            emptyStateTextView.setText("No internet connection");
 
-            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+            emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
+            emptyStateTextView.setText(R.string.emptytext);
 
         }
 
     }
 
+    //create the GoogleAPIClient for the Location service
     protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -130,6 +141,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "Setting screen name: " + name);
+        tracker.setScreenName("Image~" + name);
+        tracker.send(new HitBuilders.ScreenViewBuilder().build());
+    }
 
     protected void onStart() {
         super.onStart();
@@ -151,14 +169,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
         // in rare cases when a location is not available.
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
             return;
         }
         lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
