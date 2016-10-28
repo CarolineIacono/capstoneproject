@@ -6,7 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,7 +103,18 @@ public class MovieSummaryFragment extends Fragment {
             metascore.setText(movieSummary.getMetascore());
 
             TextView language = (TextView) getView().findViewById(R.id.language);
-            language.setText((CharSequence) movieSummary.getLanguage());
+            language.setText(movieSummary.getLanguage());
+
+            TextView rank = (TextView) getView().findViewById(R.id.rank);
+            rank.setText(movieSummary.getRank());
+
+
+            Picasso.with(getContext())
+                    .load(movieSummary.getPoster())
+                    .into((ImageView) getView().findViewById(R.id.poster));
+
+
+
         }
 
         @Override

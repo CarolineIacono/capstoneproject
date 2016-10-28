@@ -118,6 +118,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
 
 
 
+
         public ViewHolder(View itemView) {
             super(itemView);
             titleView = (TextView) itemView.findViewById(R.id.title);
