@@ -13,7 +13,9 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:paddingEnd="10dp"
-            android:paddingRight="10dp"/>
+            android:paddingRight="10dp"
+            android:paddingLeft="1dp"
+            android:paddingStart="1dp"/>
 
         <FrameLayout
             android:id="@+id/detail_container"
@@ -21,7 +23,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:paddingStart="10dp">
+            android:paddingStart="10dp"
+            android:paddingEnd="1dp"
+            android:paddingRight="1dp">
 
 
 

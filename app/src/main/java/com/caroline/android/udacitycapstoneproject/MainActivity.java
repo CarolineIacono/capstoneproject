@@ -81,19 +81,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (isConnected) {
 
 
-            recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(layoutManager);
+
 
 
             RecyclerView.Adapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
                 @Override
                 public void onMovieClicked(MovieItem movieItem) {
 
-                    tracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("Action")
-                            .setAction("Load Detail Screen")
-                            .build());
+
 
                     if (twoPane) {
                         String key = movieItem.getImdbId();
@@ -111,8 +106,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         intent.putExtra("key", key);
                         startActivity(intent);
                     }
+                    tracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Action")
+                            .setAction("Load Detail Screen")
+                            .build());
                 }
             });
+            recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+            recyclerView.setLayoutManager(layoutManager);
 
             recyclerView.setAdapter(adapter);
 

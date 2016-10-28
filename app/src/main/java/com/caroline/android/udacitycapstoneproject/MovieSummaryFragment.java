@@ -33,8 +33,6 @@ public class MovieSummaryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        String key = getActivity().getIntent().getExtras().getString("key");
-//        new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
 
 
     }
@@ -55,6 +53,7 @@ public class MovieSummaryFragment extends Fragment {
         @Override
         protected void onPostExecute(MovieSummary movieSummary) {
             super.onPostExecute(movieSummary);
+
 
 
             TextView title = (TextView) getView().findViewById(R.id.title);
@@ -104,8 +103,6 @@ public class MovieSummaryFragment extends Fragment {
 
             TextView language = (TextView) getView().findViewById(R.id.language);
             language.setText(movieSummary.getLanguage());
-
-
 
             Picasso.with(getContext())
                     .load(movieSummary.getPoster())
