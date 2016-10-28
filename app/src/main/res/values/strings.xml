@@ -28,4 +28,5 @@
     <string name="longitude_label" />
     <string name="no_location_detected">No location detected</string>
     <string name="emptytext">No internet connection</string>
+    <string name="aApplication">AnalyticsApplication</string>
 </resources>

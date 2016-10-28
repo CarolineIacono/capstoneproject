@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 @Override
                 public void onMovieClicked(MovieItem movieItem) {
 
+                    tracker.send(new HitBuilders.EventBuilder()
+                            .setCategory("Action")
+                            .setAction("Load Detail Screen")
+                            .build());
+
                     if (twoPane) {
                         String key = movieItem.getImdbId();
                         Bundle bundle = new Bundle();
@@ -144,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onResume() {
         super.onResume();
+        String name = getLocalClassName();
         Log.i(TAG, "Setting screen name: " + name);
         tracker.setScreenName("Image~" + name);
         tracker.send(new HitBuilders.ScreenViewBuilder().build());
