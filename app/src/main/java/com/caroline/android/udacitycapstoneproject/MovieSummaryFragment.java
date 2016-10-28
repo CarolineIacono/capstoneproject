@@ -105,8 +105,6 @@ public class MovieSummaryFragment extends Fragment {
             TextView language = (TextView) getView().findViewById(R.id.language);
             language.setText(movieSummary.getLanguage());
 
-            TextView rank = (TextView) getView().findViewById(R.id.rank);
-            rank.setText(movieSummary.getRank());
 
 
             Picasso.with(getContext())
@@ -174,7 +172,7 @@ public class MovieSummaryFragment extends Fragment {
         JSONArray genre = post.optJSONArray("genre");
         for(int i = 0; i < genre.length(); i++) {
             String genres = (String) genre.get(i);
-            sb.append(genres);
+            sb.append(genres + " ");
         }
         item.setGenre(sb);
 
@@ -184,7 +182,7 @@ public class MovieSummaryFragment extends Fragment {
         JSONArray actor = post.optJSONArray("actors");
         for(int i = 0; i < actor.length(); i++) {
             String actors = (String) actor.get(i);
-            sbActor.append(actors);
+            sbActor.append(actors + " ");
         }
         item.setActors(sbActor);
 
@@ -192,15 +190,12 @@ public class MovieSummaryFragment extends Fragment {
         JSONArray language = post.optJSONArray("language");
         for(int i = 0; i < language.length(); i++) {
             String languages = (String) language.get(i);
-            sbLanguage.append(languages);
+            sbLanguage.append(languages + " ");
         }
+
+
         item.setLanguage(sbLanguage);
 
-
-
-
-        String rank = post.optString("rank");
-        item.setRank(rank);
 
         String year = post.optString("year");
         item.setYear(year);

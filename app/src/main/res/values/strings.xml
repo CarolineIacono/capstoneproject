@@ -19,4 +19,12 @@
     <string name="rank">Rank: </string>
     <string name="movieposter">moviePoster</string>
     <string name="director">Director: </string>
+    <string name="no_location_data_provided">No location data provided</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="invalid_lat_long_used">Service not available</string>
+    <string name="no_address_found">No address found</string>
+    <string name="address_found">Address found</string>
+    <string name="latitude_label" />
+    <string name="longitude_label" />
+    <string name="no_location_detected">No location detected</string>
 </resources>

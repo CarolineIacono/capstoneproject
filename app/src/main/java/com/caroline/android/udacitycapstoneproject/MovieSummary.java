@@ -41,13 +41,7 @@ public class MovieSummary  {
     }
 
 
-    public String getRank() {
-        return rank;
-    }
 
-    public void setRank(String rank) {
-        this.rank = rank;
-    }
 
 
     public String getYear() {
