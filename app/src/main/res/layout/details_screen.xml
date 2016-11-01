@@ -17,6 +17,8 @@
         android:text="here there"
         android:textColor="@color/colorAccent"/>
 
+
+
     <ImageView
         android:id="@+id/poster"
         android:layout_width="150dp"

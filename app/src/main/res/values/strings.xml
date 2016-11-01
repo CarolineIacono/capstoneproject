@@ -29,4 +29,6 @@
     <string name="no_location_detected">No location detected</string>
     <string name="emptytext">No internet connection</string>
     <string name="aApplication">AnalyticsApplication</string>
+    <string name="get_location">find theaters near me</string>
+    <string name="select_map">Choose which map to use</string>
 </resources>

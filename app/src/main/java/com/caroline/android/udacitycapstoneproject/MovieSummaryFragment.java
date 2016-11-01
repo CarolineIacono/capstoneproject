@@ -244,17 +244,6 @@ public class MovieSummaryFragment extends Fragment {
     }
 }
 
-//
-//    private MovieSummary parseArray(JSONArray post) {
-//        MovieSummary array = new MovieSummary();
-//
-//        JSONArray languages = post.optJSONArray(Integer.parseInt("language"));
-//        int i;
-//        for (i = 0; i < languages.length(); i++) ;
-//        languages.optString(i);
-//        array
-//
-//
-//    }
+
 
 

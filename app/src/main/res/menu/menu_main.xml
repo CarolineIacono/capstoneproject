@@ -9,6 +9,11 @@
         android:title="@string/action_settings"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/fetch_button"
+
+        android:title="@string/get_location" />
+
 
 
 </menu>
