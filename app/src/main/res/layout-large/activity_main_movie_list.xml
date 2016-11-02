@@ -18,7 +18,7 @@
             android:paddingStart="1dp"/>
 
         <FrameLayout
-            android:id="@+id/detail_container"
+            android:id="@+id/detail_container_large"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

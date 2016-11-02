@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
         //check if the screen is large or small
-        if (findViewById(R.id.detail_container) != null) {
+        if (findViewById(R.id.detail_container_large) != null) {
             twoPane = true;
         }
 
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                         MovieSummaryFragment fragment = new MovieSummaryFragment();
                         fragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.detail_container, fragment)
+                                .replace(R.id.detail_container_large, fragment)
                                 .commit();
 
                     } else {
@@ -161,6 +161,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
         switch (item.getItemId()) {
             case R.id.fetch_button:
                 Uri location = Uri.parse(uri + "?q=theater");
@@ -197,15 +200,16 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
         }
 
+
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
 
-
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            String longitude = String.valueOf(lastLocation.getLongitude());
-            String latitude = String.valueOf(lastLocation.getLatitude());
-            uri = String.format(Locale.ENGLISH, "geo:" + latitude + ", " + longitude);
-
-
+          if (lastLocation != null) {
+              String longitude = String.valueOf(lastLocation.getLongitude());
+              String latitude = String.valueOf(lastLocation.getLatitude());
+              uri = String.format(Locale.ENGLISH, "geo:" + latitude + ", " + longitude);
+          }
+//
         }
 
 

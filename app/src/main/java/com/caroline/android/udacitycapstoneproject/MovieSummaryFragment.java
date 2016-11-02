@@ -23,6 +23,7 @@ public class MovieSummaryFragment extends Fragment {
 
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String DETAIL_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/by_id/";
+    private MovieSummary movieSummaryObject;
 
     public MovieSummaryFragment() {
 
@@ -39,14 +40,27 @@ public class MovieSummaryFragment extends Fragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
+//check if I already have a MovieSummary object
         String key = getArguments().getString("key");
         new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
+
+
 
 
         return inflater.inflate(R.layout.details_screen, container, false);
 
 
     }
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//
+////        outState.put(MovieSummary);
+//    }
+
+
 
 
     public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
