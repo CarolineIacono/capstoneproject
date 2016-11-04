@@ -31,4 +31,9 @@
     <string name="aApplication">AnalyticsApplication</string>
     <string name="get_location">find theaters near me</string>
     <string name="select_map">Choose which map to use</string>
+    <string name="name">Type in the movie title here</string>
+    <string name="birthday">Type in the movie title here</string>
+    <string name="add">click here to add</string>
+    <string name="show">click here to show the list of movies</string>
+    <string name="delete">Click here to delete</string>
 </resources>

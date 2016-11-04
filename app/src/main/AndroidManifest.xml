@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
 
 
@@ -32,16 +36,21 @@
             android:theme="@style/Theme.AppCompat">
         </activity>
 
-        <receiver android:name=".MovieWidget.MovieWidget" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                android:resource="@xml/movie_widget_info" />
+<service
+    android:name=".ContentProvider.WidgetService"/>
+
+        <receiver android:name=".ContentProvider.MovieWidgetProvider">
+        <intent-filter>
+            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+        </intent-filter>
+        <meta-data android:name="android.appwidget.provider"
+            android:resource="@xml/movie_widget_info" />
         </receiver>
 
-
-
+      <provider
+          android:authorities="com.caroline.android.udacitycapstoneproject.ContentProvider.WidgetContentProvider"
+          android:name=".ContentProvider.WidgetContentProvider"
+          android:exported="false"/>
     </application>
 
 

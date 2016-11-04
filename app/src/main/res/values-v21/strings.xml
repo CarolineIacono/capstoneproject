@@ -30,4 +30,9 @@
     <string name="aApplication">AnalyticsApplication</string>
     <string name="get_location">find theaters near me</string>
     <string name="select_map">Choose which map to use</string>
+    <string name="name" />
+    <string name="birthday" />
+    <string name="add" />
+    <string name="show" />
+    <string name="delete" />
 </resources>

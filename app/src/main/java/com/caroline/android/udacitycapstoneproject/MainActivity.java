@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
             emptyStateTextView.setText(R.string.emptytext);
+            Toast.makeText(this, "No internetconnection", Toast.LENGTH_LONG).show();
 
         }
     }
@@ -155,7 +156,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         inflater.inflate(R.menu.menu_main, menu);
 
 
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -163,17 +163,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     public boolean onOptionsItemSelected(MenuItem item) {
 
 
-
         switch (item.getItemId()) {
             case R.id.fetch_button:
                 Uri location = Uri.parse(uri + "?q=theater");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
 
-                    String title = getString(R.string.select_map);
+                String title = getString(R.string.select_map);
                 Intent chooser = Intent.createChooser(mapIntent, title);
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(chooser);
                 }
+
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -204,11 +205,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
 
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-          if (lastLocation != null) {
-              String longitude = String.valueOf(lastLocation.getLongitude());
-              String latitude = String.valueOf(lastLocation.getLatitude());
-              uri = String.format(Locale.ENGLISH, "geo:" + latitude + ", " + longitude);
-          }
+            if (lastLocation != null) {
+                String longitude = String.valueOf(lastLocation.getLongitude());
+                String latitude = String.valueOf(lastLocation.getLatitude());
+                uri = String.format(Locale.ENGLISH, "geo:" + latitude + ", " + longitude);
+            }
 //
         }
 
