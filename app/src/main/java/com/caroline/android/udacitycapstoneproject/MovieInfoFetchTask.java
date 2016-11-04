@@ -63,7 +63,7 @@ public class MovieInfoFetchTask {
                     items = new ArrayList<>();
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject post = response.getJSONObject(i);
-                        items.add(parseSingleObject(post));
+                        items.add(DataUtil.parseSingleObject(post));
 
                     }
                 }
@@ -74,39 +74,7 @@ public class MovieInfoFetchTask {
             }
             return items;
         }
-
-        private MovieItem parseSingleObject(JSONObject post) {
-            MovieItem item = new MovieItem();
-
-
-            String title = post.optString("title");
-            item.setTitle(title);
-
-            String rank = post.optString("rank");
-            item.setRank(rank);
-
-            String year = post.optString("year");
-            item.setYear(year);
-
-            String poster = post.optString("poster");
-            item.setPoster(poster);
-
-            String imdbLink = post.optString("imdbLink");
-            item.setImdbLink(imdbLink);
-
-            String imdbRating = post.optString("imdbRating");
-            item.setImdbRating(imdbRating);
-
-            String imdbVotes = post.optString("imdbVotes");
-            item.setImdbVotes(imdbVotes);
-
-            String imdbId = post.optString("imdbId");
-            item.setImdbId(imdbId);
-
-
-            return item;
-        }
-
+        
 
 
     }

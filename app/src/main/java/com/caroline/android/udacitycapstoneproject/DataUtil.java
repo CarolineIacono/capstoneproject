@@ -2,6 +2,8 @@ package com.caroline.android.udacitycapstoneproject;
 
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +15,6 @@ import java.net.URL;
  * Created by carolinestewart on 6/8/16.
  */
 public class DataUtil {
-
 
 
     public static String fetch(String urlString) {
@@ -69,9 +70,37 @@ public class DataUtil {
         return movieJsonStr;
     }
 
+    public static MovieItem parseSingleObject(JSONObject post) {
+        MovieItem item = new MovieItem();
 
 
+        String title = post.optString("title");
+        item.setTitle(title);
 
+        String rank = post.optString("rank");
+        item.setRank(rank);
+
+        String year = post.optString("year");
+        item.setYear(year);
+
+        String poster = post.optString("poster");
+        item.setPoster(poster);
+
+        String imdbLink = post.optString("imdbLink");
+        item.setImdbLink(imdbLink);
+
+        String imdbRating = post.optString("imdbRating");
+        item.setImdbRating(imdbRating);
+
+        String imdbVotes = post.optString("imdbVotes");
+        item.setImdbVotes(imdbVotes);
+
+        String imdbId = post.optString("imdbId");
+        item.setImdbId(imdbId);
+
+
+        return item;
+    }
 
 
 }
