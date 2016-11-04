@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.caroline.android.udacitycapstoneproject.loaders.LoaderActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
@@ -121,8 +122,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             emptyStateTextView.setText(R.string.emptytext);
             Toast.makeText(this, "No internetconnection", Toast.LENGTH_LONG).show();
 
+
+
         }
     }
+
 
 
     //create the GoogleAPIClient for the Location service
@@ -173,7 +177,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(chooser);
                 }
+                return true;
+            case R.id.action_settings:
+                Intent intent = new Intent(MainActivity.this, LoaderActivity.class);
+                startActivity(intent);
 
+                return true;
 
 
             default:
@@ -194,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void onConnected(Bundle connectionHint) {
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-//        Toast.makeText(this, "you're stuck at the top", Toast.LENGTH_LONG).show();
 
         if (permissionCheck == PackageManager.PERMISSION_DENIED) {
 

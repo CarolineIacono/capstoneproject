@@ -35,4 +35,9 @@
     <string name="add" />
     <string name="show" />
     <string name="delete" />
+    <string name="today_s_random_movie">Today\'s Random Movie</string>
+    <string name="title">Title: </string>
+    <string name="year">Year: </string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="list_of_favorite_movies">list of favorite movies</string>
 </resources>

@@ -36,7 +36,13 @@
             android:theme="@style/Theme.AppCompat">
         </activity>
 
-<service
+        <activity
+            android:name="com.caroline.android.udacitycapstoneproject.loaders.LoaderActivity"
+            android:theme="@style/Theme.AppCompat">
+        </activity>
+
+
+        <service
     android:name=".contentprovider2.WidgetService"/>
 
         <receiver android:name=".contentprovider2.MovieWidgetProvider">

@@ -23,7 +23,6 @@ public class MovieSummary  {
     String awards;
     String poster;
     String country;
-    String rank;
     String imdbLink;
 
 

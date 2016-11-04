@@ -24,8 +24,6 @@
     <string name="invalid_lat_long_used">Service not available</string>
     <string name="no_address_found">No address found</string>
     <string name="address_found">Address found</string>
-    <string name="latitude_label" />
-    <string name="longitude_label" />
     <string name="no_location_detected">No location detected</string>
     <string name="emptytext">No internet connection</string>
     <string name="aApplication">AnalyticsApplication</string>
@@ -36,4 +34,9 @@
     <string name="add">click here to add</string>
     <string name="show">click here to show the list of movies</string>
     <string name="delete">Click here to delete</string>
+    <string name="today_s_random_movie">Today\'s Random Movie</string>
+    <string name="title">Title: </string>
+    <string name="year">Year: </string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="list_of_favorite_movies">list of favorite movies</string>
 </resources>

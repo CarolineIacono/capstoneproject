@@ -46,7 +46,7 @@ public class MovieItemCursor extends AbstractCursor {
             case 1:
                 return currentItem.getTitle();
             case 2:
-                return currentItem.getDirector();
+                return currentItem.getImdbRating();
             case 3:
                 return currentItem.getYear();
         }

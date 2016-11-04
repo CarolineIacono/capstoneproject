@@ -42,7 +42,7 @@ public class WidgetService extends IntentService {
         while (cursor != null && cursor.moveToNext()) {
             MovieItem item = new MovieItem();
             item.setTitle(cursor.getString(cursor.getColumnIndex(MovieItemCursor.TITLE)));
-            item.setDirector(cursor.getString(cursor.getColumnIndex(MovieItemCursor.DIRECTOR)));
+            item.setImdbRating(cursor.getString(cursor.getColumnIndex(MovieItemCursor.DIRECTOR)));
             item.setYear(cursor.getString(cursor.getColumnIndex(MovieItemCursor.YEAR)));
             movies.add(item);
         }
@@ -61,8 +61,8 @@ public class WidgetService extends IntentService {
 //
 //
             remoteViews.setTextViewText(R.id.widget_title, movieItem.getTitle());
-            remoteViews.setTextViewText(R.id.widget_year, movieItem.getDirector());
-            remoteViews.setTextViewText(R.id.widget_director, movieItem.getYear());
+            remoteViews.setTextViewText(R.id.widget_year, movieItem.getYear());
+            remoteViews.setTextViewText(R.id.widget_director, movieItem.getImdbRating());
 
 
 
