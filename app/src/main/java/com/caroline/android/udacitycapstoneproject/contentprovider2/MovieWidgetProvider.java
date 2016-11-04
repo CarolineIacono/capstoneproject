@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject.ContentProvider;
+package com.caroline.android.udacitycapstoneproject.contentprovider2;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

@@ -1,21 +1,22 @@
-package com.caroline.android.udacitycapstoneproject.ContentProvider;
+package com.caroline.android.udacitycapstoneproject.contentprovider2;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.caroline.android.udacitycapstoneproject.DataUtil;
 import com.caroline.android.udacitycapstoneproject.MovieItem;
 import com.caroline.android.udacitycapstoneproject.R;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by carolinestewart on 11/3/16.
- */
+
 public class WidgetService extends IntentService {
     public final static String TAG = WidgetService.class.getSimpleName();
     private static final String EXTRA_WIDGET_IDS = "extra_widgetIds";
@@ -29,8 +30,22 @@ public class WidgetService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-        // go fetch top 100
-        List<MovieItem> movies = DataUtil.fetchMovieItems();
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme(ContentResolver.SCHEME_CONTENT);
+        builder.authority(WidgetContentProvider.AUTHORITY);
+        builder.appendPath(WidgetContentProvider.TABLE_TOP100);
+
+        Uri uri = builder.build();
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+
+        List<MovieItem> movies = new ArrayList<>();
+        while (cursor != null && cursor.moveToNext()) {
+            MovieItem item = new MovieItem();
+            item.setTitle(cursor.getString(cursor.getColumnIndex(MovieItemCursor.TITLE)));
+            item.setDirector(cursor.getString(cursor.getColumnIndex(MovieItemCursor.DIRECTOR)));
+            item.setYear(cursor.getString(cursor.getColumnIndex(MovieItemCursor.YEAR)));
+            movies.add(item);
+        }
 
         // pick a random movie
         Random random = new Random();

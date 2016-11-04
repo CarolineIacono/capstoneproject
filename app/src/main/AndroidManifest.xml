@@ -37,19 +37,19 @@
         </activity>
 
 <service
-    android:name=".ContentProvider.WidgetService"/>
+    android:name=".contentprovider2.WidgetService"/>
 
-        <receiver android:name=".ContentProvider.MovieWidgetProvider">
-        <intent-filter>
-            <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-        </intent-filter>
-        <meta-data android:name="android.appwidget.provider"
-            android:resource="@xml/movie_widget_info" />
+        <receiver android:name=".contentprovider2.MovieWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/movie_widget_info" />
         </receiver>
 
       <provider
-          android:authorities="com.caroline.android.udacitycapstoneproject.ContentProvider.WidgetContentProvider"
-          android:name=".ContentProvider.WidgetContentProvider"
+          android:authorities="com.caroline.android.udacitycapstoneproject.contentprovider2.WidgetContentProvider"
+          android:name="com.caroline.android.udacitycapstoneproject.contentprovider2.WidgetContentProvider"
           android:exported="false"/>
     </application>
 
