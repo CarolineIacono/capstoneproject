@@ -20,10 +20,11 @@ import java.util.List;
  * Created by carolinestewart on 6/8/16.
  */
 public class DataUtil {
+    private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
+    private static final String TOP_MOVIE_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/top_movies.json";
 
-
-    public static List<MovieItem> fetchMovieItems(String urlString) {
-        String movieJsonStr = fetchJson(urlString);
+    public static List<MovieItem> fetchMovieItems() {
+        String movieJsonStr = fetchJson(TOP_MOVIE_URL);
         return parseMovieItems(movieJsonStr);
     }
 

@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.caroline.android.udacitycapstoneproject.DataUtil;
 import com.caroline.android.udacitycapstoneproject.MovieItem;
 import com.caroline.android.udacitycapstoneproject.R;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by carolinestewart on 11/3/16.
@@ -26,15 +30,11 @@ public class WidgetService extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
         // go fetch top 100
+        List<MovieItem> movies = DataUtil.fetchMovieItems();
 
         // pick a random movie
-
-        MovieItem movieItem = new MovieItem();
-        movieItem.setTitle("Twilight");
-        movieItem.setDirector("Female Director");
-
-        String year = String.valueOf(System.currentTimeMillis());
-        movieItem.setYear(year);
+        Random random = new Random();
+        MovieItem movieItem = movies.get(random.nextInt(movies.size()));
 
         int[] widgetIds = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
 

@@ -53,7 +53,7 @@ public class MovieSummaryFragment extends Fragment {
             String urlString = params[0];
             return DataUtil.fetchMovieSummary(urlString);
         }
-        
+
         @Override
         protected void onPostExecute(MovieSummary movieSummary) {
             super.onPostExecute(movieSummary);
