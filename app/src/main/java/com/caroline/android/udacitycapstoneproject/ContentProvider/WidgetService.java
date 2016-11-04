@@ -26,7 +26,6 @@ public class WidgetService extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
         // go fetch random movie
-        // update widget with movie
 
         MovieItem movieItem = new MovieItem();
         movieItem.setTitle("Twilight");
