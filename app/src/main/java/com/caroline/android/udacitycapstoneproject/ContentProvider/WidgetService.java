@@ -25,7 +25,9 @@ public class WidgetService extends IntentService {
     protected void onHandleIntent(Intent intent) {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 
-        // go fetch random movie
+        // go fetch top 100
+
+        // pick a random movie
 
         MovieItem movieItem = new MovieItem();
         movieItem.setTitle("Twilight");

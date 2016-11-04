@@ -2,11 +2,6 @@ package com.caroline.android.udacitycapstoneproject;
 
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,45 +33,13 @@ public class MovieInfoFetchTask {
         @Override
         protected List<MovieItem> doInBackground(String... params) {
             String urlString = params[0];
-
-            return parseMovieItems(DataUtil.fetch(urlString));
-
+            return DataUtil.fetchMovieItems(urlString);
         }
 
         @Override
         protected void onPostExecute(List<MovieItem> result) {
             movieCallback.onComplete(result);
-
-
         }
-
-        private List<MovieItem> parseMovieItems(String result) {
-
-
-            List<MovieItem> items = null;
-
-
-            try {
-                JSONArray response = new JSONArray(result);
-
-                {
-                    items = new ArrayList<>();
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject post = response.getJSONObject(i);
-                        items.add(DataUtil.parseSingleObject(post));
-
-                    }
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return items;
-        }
-        
-
-
     }
 
     public interface GetMovieCallback {

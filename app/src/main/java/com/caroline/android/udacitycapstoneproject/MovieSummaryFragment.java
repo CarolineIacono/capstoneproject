@@ -11,10 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by carolinestewart on 10/26/16.
  */
@@ -45,24 +41,22 @@ public class MovieSummaryFragment extends Fragment {
         String key = getArguments().getString("key");
         new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
 
-
-
-
         return inflater.inflate(R.layout.details_screen, container, false);
 
 
     }
 
-
-
-
-
     public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
+
+        @Override
+        protected MovieSummary doInBackground(String... params) {
+            String urlString = params[0];
+            return DataUtil.fetchMovieSummary(urlString);
+        }
+        
         @Override
         protected void onPostExecute(MovieSummary movieSummary) {
             super.onPostExecute(movieSummary);
-
-
 
             TextView title = (TextView) getView().findViewById(R.id.title);
             title.setText(movieSummary.getTitle());
@@ -115,40 +109,7 @@ public class MovieSummaryFragment extends Fragment {
             Picasso.with(getContext())
                     .load(movieSummary.getPoster())
                     .into((ImageView) getView().findViewById(R.id.poster));
-
-
-
         }
-
-        @Override
-        protected MovieSummary doInBackground(String... params) {
-            String urlString = params[0];
-            return parseMovieItem(DataUtil.fetch(urlString));
-
-
-        }
-
-    }
-
-    private MovieSummary parseMovieItem(String result) {
-
-        try {
-            JSONObject response = new JSONObject(result);
-
-
-            if (response == null) {
-                return null;
-            } else {
-                return parseSingleObject(response);
-            }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-
-
     }
 
 
@@ -162,93 +123,6 @@ public class MovieSummaryFragment extends Fragment {
 
 
         super.onPause();
-    }
-
-    private MovieSummary parseSingleObject(JSONObject post) throws JSONException {
-
-        MovieSummary item = new MovieSummary();
-
-
-
-        String title = post.optString("title");
-        item.setTitle(title);
-
-        StringBuilder sb = new StringBuilder();
-        JSONArray genre = post.optJSONArray("genre");
-        for(int i = 0; i < genre.length(); i++) {
-            String genres = (String) genre.get(i);
-            sb.append(genres + " ");
-        }
-        item.setGenre(sb);
-
-
-
-        StringBuilder sbActor = new StringBuilder();
-        JSONArray actor = post.optJSONArray("actors");
-        for(int i = 0; i < actor.length(); i++) {
-            String actors = (String) actor.get(i);
-            sbActor.append(actors + " ");
-        }
-        item.setActors(sbActor);
-
-        StringBuilder sbLanguage = new StringBuilder();
-        JSONArray language = post.optJSONArray("language");
-        for(int i = 0; i < language.length(); i++) {
-            String languages = (String) language.get(i);
-            sbLanguage.append(languages + " ");
-        }
-
-
-        item.setLanguage(sbLanguage);
-
-
-        String year = post.optString("year");
-        item.setYear(year);
-
-        String poster = post.optString("poster");
-        item.setPoster(poster);
-
-        String imdbLink = post.optString("imdbLink");
-        item.setImdbLink(imdbLink);
-
-        String imdbRating = post.optString("imdbRating");
-        item.setImdbRating(imdbRating);
-
-        String imdbVotes = post.optString("imdbVotes");
-        item.setImdbVotes(imdbVotes);
-
-        String imdbId = post.optString("imdbId");
-        item.setImdbId(imdbId);
-
-        String rated = post.optString("rated");
-        item.setRated(rated);
-
-        String release = post.optString("released");
-        item.setReleased(release);
-
-        String director = post.optString("director");
-        item.setDirector(director);
-
-
-        String writer = post.optString("writer");
-        item.setWriter(writer);
-
-        String country = post.optString("country");
-        item.setCountry(country);
-
-        String runtime = post.optString("runtime");
-        item.setRuntime(runtime);
-
-        String metascore = post.optString("metascore");
-        item.setMetascore(metascore);
-
-        String awards = post.optString("awards");
-        item.setAwards(awards);
-
-        String plot = post.optString("plot");
-        item.setPlot(plot);
-
-        return item;
     }
 }
 
