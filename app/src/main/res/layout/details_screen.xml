@@ -9,6 +9,7 @@
 
 
 
+
     <ImageView
         android:id="@+id/poster"
         android:layout_width="150dp"

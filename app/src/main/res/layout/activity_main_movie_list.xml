@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:fitsSystemWindows="true">
 
+    </android.support.v7.widget.Toolbar>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movieList"
         android:layout_width="match_parent"
@@ -17,10 +31,13 @@
         android:paddingStart="1dp"/>
 
 
+
+
+
     <TextView
         android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"/>
-
+    </LinearLayout>
 </LinearLayout>

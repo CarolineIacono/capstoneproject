@@ -8,14 +8,11 @@ import android.support.v7.app.AppCompatActivity;
  */
 public class DetailActivity extends AppCompatActivity {
 
-    private boolean twoPane;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-        //check to see if you already have one
 
         if (getSupportFragmentManager().findFragmentById(R.id.details_container) == null) {
 

@@ -30,8 +30,8 @@ public class FavoriteMoviesAdapter extends BaseAdapter {
         }
         TextView favtitle = (TextView) view.findViewById(R.id.favtitle);
         favtitle.setText(fvm.title);
-        TextView favyear = (TextView) view.findViewById(R.id.favyear);
-        favyear.setText(fvm.releaseYear);
+        TextView favgenre = (TextView) view.findViewById(R.id.favgenre);
+        favgenre.setText(fvm.genre);
         return view;
     }
     @Override

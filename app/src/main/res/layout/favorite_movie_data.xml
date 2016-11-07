@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"/>
     <TextView
-        android:id="@+id/favyear"
+        android:id="@+id/favgenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="2"/>

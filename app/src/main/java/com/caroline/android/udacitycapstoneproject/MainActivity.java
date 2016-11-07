@@ -14,9 +14,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_movie_list);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
 
         //start the shared tracker and obtain the instance
@@ -120,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
             emptyStateTextView.setText(R.string.emptytext);
-            Toast.makeText(this, "No internetconnection", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
 
 
 
@@ -156,8 +159,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
 
 
         return super.onCreateOptionsMenu(menu);
@@ -237,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
                 } else {
 
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.permission_denied, Toast.LENGTH_LONG).show();
 
                 }
             }

@@ -40,4 +40,9 @@
     <string name="year">Year: </string>
     <string name="favorite_movies">Favorite Movies</string>
     <string name="list_of_favorite_movies">list of favorite movies</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="twilight">Twilight</string>
+    <string name="only_lovers">Only Lovers Left Alive</string>
+    <string name="romance">Romance</string>
+    <string name="childrens">Children\'s</string>
 </resources>
