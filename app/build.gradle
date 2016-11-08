@@ -17,7 +17,7 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("/Users/carolinestewart/Documents/keystore/udacitycapstone.jks")
+            storeFile file("keystore/udacitycapstone.jks")
             storePassword "Gretchen"
             keyAlias "CarolineUdacityCapstone"
             keyPassword "Gretchen09!"
