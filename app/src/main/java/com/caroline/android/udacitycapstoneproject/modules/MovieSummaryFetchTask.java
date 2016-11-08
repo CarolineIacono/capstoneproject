@@ -1,7 +1,10 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.modules;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.caroline.android.udacitycapstoneproject.MovieItem;
+import com.caroline.android.udacitycapstoneproject.MovieSummary;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,7 +22,7 @@ import java.util.List;
 /**
  * Created by carolinestewart on 6/8/16.
  */
-public class DataUtil {
+public class MovieSummaryFetchTask {
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String TOP_MOVIE_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/top_movies.json";
 
@@ -69,7 +72,7 @@ public class DataUtil {
 
 
         } catch (IOException e) {
-            Log.e("DataUtil", "Error ", e);
+            Log.e("MovieSummaryFetchTask", "Error ", e);
             jsonStr = null;
         } finally {
             if (urlConnection != null) {
@@ -79,7 +82,7 @@ public class DataUtil {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e("DataUtil", "Error closing stream", e);
+                    Log.e("MovieSummaryFetchTask", "Error closing stream", e);
                 }
             }
         }

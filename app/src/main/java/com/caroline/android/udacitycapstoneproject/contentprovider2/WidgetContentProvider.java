@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-import com.caroline.android.udacitycapstoneproject.DataUtil;
+import com.caroline.android.udacitycapstoneproject.modules.MovieSummaryFetchTask;
 import com.caroline.android.udacitycapstoneproject.MovieItem;
 
 import java.util.List;
@@ -36,7 +36,7 @@ public class WidgetContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
         // go fetch top 100
-        final List<MovieItem> movies = DataUtil.fetchMovieItems();
+        final List<MovieItem> movies = MovieSummaryFetchTask.fetchMovieItems();
 
         Cursor cursor = new MovieItemCursor(movies);
         return cursor;

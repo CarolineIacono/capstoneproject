@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.caroline.android.udacitycapstoneproject.modules.MovieItemFetchTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by carolinestewart on 9/12/16.
  */
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieInfoFetchTask.GetMovieCallback {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieItemFetchTask.GetMovieCallback {
 
     private List<MovieItem> movieViewData;
     private Context context;
@@ -27,7 +28,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         this.context = context;
         this.movieClickListener = movieClickListener;
         this.movieViewData = new ArrayList<>();
-        MovieInfoFetchTask.getMovieData(this);
+        MovieItemFetchTask.getMovieData(this);
 
 
     }

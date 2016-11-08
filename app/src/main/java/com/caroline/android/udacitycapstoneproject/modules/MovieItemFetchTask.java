@@ -1,13 +1,15 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.modules;
 
 import android.os.AsyncTask;
+
+import com.caroline.android.udacitycapstoneproject.MovieItem;
 
 import java.util.List;
 
 /**
  * Created by carolinestewart on 10/25/16.
  */
-public class MovieInfoFetchTask {
+public class MovieItemFetchTask {
 
 
 
@@ -31,7 +33,7 @@ public class MovieInfoFetchTask {
 
         @Override
         protected List<MovieItem> doInBackground(String... params) {
-            return DataUtil.fetchMovieItems();
+            return MovieSummaryFetchTask.fetchMovieItems();
         }
 
         @Override

@@ -53,7 +53,7 @@ public class MovieSummaryFragment extends Fragment {
         @Override
         protected MovieSummary doInBackground(String... params) {
             String urlString = params[0];
-            return DataUtil.fetchMovieSummary(urlString);
+            return com.caroline.android.udacitycapstoneproject.modules.MovieSummaryFetchTask.fetchMovieSummary(urlString);
         }
 
         @Override
