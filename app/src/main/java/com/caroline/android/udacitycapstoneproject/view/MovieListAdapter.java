@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by carolinestewart on 9/12/16.
  */
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieFetchTask.GetMovieCallback {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> {
 
     private List<MovieItem> movieViewData;
     private Context context;
@@ -29,7 +29,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         this.context = context;
         this.movieClickListener = movieClickListener;
         this.movieViewData = new ArrayList<>();
-        new MovieFetchTask(this).execute();
 
     }
 
@@ -79,10 +78,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         return (null != movieViewData ? movieViewData.size() : 0);
     }
 
-    @Override
-    public void onComplete(List<MovieItem> list) {
+
+
+    public void setData(List<MovieItem> list) {
         movieViewData = list;
         notifyDataSetChanged();
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

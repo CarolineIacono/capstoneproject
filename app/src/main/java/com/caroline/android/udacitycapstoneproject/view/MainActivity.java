@@ -30,6 +30,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (isConnected) {
 
 
-            RecyclerView.Adapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
+            final MovieListAdapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
                 @Override
                 public void onMovieClicked(MovieItem movieItem) {
 
@@ -118,7 +119,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             recyclerView.setAdapter(adapter);
 
-            //if it's not connected to the internet, let the user know
+            new MovieFetchTask(new MovieFetchTask.GetMovieCallback() {
+                @Override
+                public void onComplete(List<MovieItem> list) {
+                    adapter.setData(list);
+                }
+            }).execute();
+
 
         } else {
 
@@ -262,7 +269,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
     }
-
 
 }
 
