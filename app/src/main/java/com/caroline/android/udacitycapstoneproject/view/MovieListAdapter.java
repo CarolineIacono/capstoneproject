@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.caroline.android.udacitycapstoneproject.R;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.List;
 /**
  * Created by carolinestewart on 9/12/16.
  */
-public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieInfoFetchTask.GetMovieCallback {
+public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ViewHolder> implements MovieFetchTask.GetMovieCallback {
 
     private List<MovieItem> movieViewData;
     private Context context;
@@ -27,11 +29,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.View
         this.context = context;
         this.movieClickListener = movieClickListener;
         this.movieViewData = new ArrayList<>();
-        MovieInfoFetchTask.getMovieData(this);
-
+        new MovieFetchTask(this).execute();
 
     }
-
 
 
 

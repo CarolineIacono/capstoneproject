@@ -1,12 +1,12 @@
-package com.caroline.android.udacitycapstoneproject.loaders;
+package com.caroline.android.udacitycapstoneproject.model;
 
 /**
  * Created by carolinestewart on 11/4/16.
  */
-public class FavoriteMovies {
+public class FavoriteMovie {
     public int title;
     public int genre;
-    public FavoriteMovies(int title, int genre) {
+    public FavoriteMovie(int title, int genre) {
         this.title = title;
         this.genre = genre;
     }

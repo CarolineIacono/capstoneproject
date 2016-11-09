@@ -14,14 +14,14 @@
 
 
     <application
-        android:name=".AnalyticsApplication"
+        android:name=".view.AnalyticsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
@@ -31,21 +31,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".view.DetailActivity"
             android:label="@string/title_item_detail"
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
         <activity
-            android:name="com.caroline.android.udacitycapstoneproject.loaders.LoaderActivity"
+            android:name=".view.loaders.LoaderActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
 
         <service
-    android:name=".contentprovider2.WidgetService"/>
+    android:name=".view.contentprovider2.WidgetService"/>
 
-        <receiver android:name=".contentprovider2.MovieWidgetProvider">
+        <receiver android:name=".view.contentprovider2.MovieWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -54,8 +54,8 @@
         </receiver>
 
       <provider
-          android:authorities="com.caroline.android.udacitycapstoneproject.contentprovider2.WidgetContentProvider"
-          android:name="com.caroline.android.udacitycapstoneproject.contentprovider2.WidgetContentProvider"
+          android:authorities="com.caroline.android.udacitycapstoneproject.view.contentprovider2.WidgetContentProvider"
+          android:name=".view.contentprovider2.WidgetContentProvider"
           android:exported="false"/>
     </application>
 

@@ -1,9 +1,9 @@
-package com.caroline.android.udacitycapstoneproject.contentprovider2;
+package com.caroline.android.udacitycapstoneproject.view.contentprovider2;
 
 import android.database.AbstractCursor;
 import android.provider.BaseColumns;
 
-import com.caroline.android.udacitycapstoneproject.MovieItem;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
 import java.util.List;
 

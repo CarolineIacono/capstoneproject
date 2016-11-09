@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject.contentprovider2;
+package com.caroline.android.udacitycapstoneproject.view.contentprovider2;
 
 import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.widget.RemoteViews;
 
-import com.caroline.android.udacitycapstoneproject.MovieItem;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 import com.caroline.android.udacitycapstoneproject.R;
 
 import java.util.ArrayList;

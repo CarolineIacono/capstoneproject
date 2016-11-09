@@ -1,7 +1,9 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.caroline.android.udacitycapstoneproject.R;
 
 /**
  * Created by carolinestewart on 9/15/16.

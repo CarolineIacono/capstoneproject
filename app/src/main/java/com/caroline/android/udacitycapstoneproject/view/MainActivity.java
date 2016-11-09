@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.view;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,7 +21,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.caroline.android.udacitycapstoneproject.loaders.LoaderActivity;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
+import com.caroline.android.udacitycapstoneproject.R;
+import com.caroline.android.udacitycapstoneproject.view.loaders.LoaderActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;

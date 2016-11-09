@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.model;
 
 /**
  * Created by carolinestewart on 5/2/16.

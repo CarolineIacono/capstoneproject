@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.view;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.caroline.android.udacitycapstoneproject.model.DataUtil;
+import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
+import com.caroline.android.udacitycapstoneproject.R;
 import com.squareup.picasso.Picasso;
 
 /**

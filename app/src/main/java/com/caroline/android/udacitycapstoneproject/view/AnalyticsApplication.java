@@ -1,7 +1,8 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.view;
 
 import android.app.Application;
 
+import com.caroline.android.udacitycapstoneproject.R;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 

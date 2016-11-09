@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject.loaders;
+package com.caroline.android.udacitycapstoneproject.view.loaders;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.caroline.android.udacitycapstoneproject.R;
+import com.caroline.android.udacitycapstoneproject.model.FavoriteMovie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +18,14 @@ import java.util.List;
  */
 public class FavoriteMoviesAdapter extends BaseAdapter {
     private LayoutInflater inflater;
-    private List<FavoriteMovies> favoriteMovies = new ArrayList<FavoriteMovies>();
-    public FavoriteMoviesAdapter(Context context, List<FavoriteMovies> favoriteMovies) {
+    private List<FavoriteMovie> favoriteMovies = new ArrayList<FavoriteMovie>();
+    public FavoriteMoviesAdapter(Context context, List<FavoriteMovie> favoriteMovies) {
         this.favoriteMovies = favoriteMovies;
         inflater = LayoutInflater.from(context);
     }
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        FavoriteMovies fvm = (FavoriteMovies) getItem(position);
+        FavoriteMovie fvm = (FavoriteMovie) getItem(position);
         if (view == null) {
             view = inflater.inflate(R.layout.favorite_movie_data, null);
         }
@@ -46,7 +47,7 @@ public class FavoriteMoviesAdapter extends BaseAdapter {
     public int getCount() {
         return favoriteMovies.size();
     }
-    public void setFavoriteMovies(List<FavoriteMovies> data) {
+    public void setFavoriteMovies(List<FavoriteMovie> data) {
         favoriteMovies.addAll(data);
         notifyDataSetChanged();
     }

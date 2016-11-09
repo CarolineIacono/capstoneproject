@@ -1,7 +1,10 @@
-package com.caroline.android.udacitycapstoneproject;
+package com.caroline.android.udacitycapstoneproject.model;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
+import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
 
 import org.json.JSONArray;
 import org.json.JSONException;

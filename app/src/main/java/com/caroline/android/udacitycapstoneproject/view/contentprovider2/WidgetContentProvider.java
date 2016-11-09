@@ -1,4 +1,4 @@
-package com.caroline.android.udacitycapstoneproject.contentprovider2;
+package com.caroline.android.udacitycapstoneproject.view.contentprovider2;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -7,8 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-import com.caroline.android.udacitycapstoneproject.DataUtil;
-import com.caroline.android.udacitycapstoneproject.MovieItem;
+import com.caroline.android.udacitycapstoneproject.model.DataUtil;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class WidgetContentProvider extends ContentProvider {
     private static final UriMatcher sURIMatcher = new UriMatcher(
             UriMatcher.NO_MATCH);
 
-    public static final String AUTHORITY = "com.caroline.android.udacitycapstoneproject.contentprovider2.WidgetContentProvider";
+    public static final String AUTHORITY = "com.caroline.android.udacitycapstoneproject.view.contentprovider2.WidgetContentProvider";
     public static final String TABLE_TOP100 = "top100";
 
     static {
