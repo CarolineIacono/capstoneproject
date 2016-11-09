@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,10 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 import com.caroline.android.udacitycapstoneproject.R;
+import com.caroline.android.udacitycapstoneproject.concurrency.UiExecutor;
+import com.caroline.android.udacitycapstoneproject.model.MovieItem;
+import com.caroline.android.udacitycapstoneproject.presenter.MainPresenter;
 import com.caroline.android.udacitycapstoneproject.view.loaders.LoaderActivity;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -32,11 +35,14 @@ import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+
+;
 
 /**
  * Created by carolinestewart on 6/7/16.
  */
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, MainPresenter.View {
 
 
     private boolean twoPane;
@@ -49,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private String uri;
 
     private Tracker tracker;
+    private MovieListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (isConnected) {
 
 
-            final MovieListAdapter adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
+            adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
                 @Override
                 public void onMovieClicked(MovieItem movieItem) {
 
@@ -119,12 +126,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             recyclerView.setAdapter(adapter);
 
-            new MovieFetchTask(new MovieFetchTask.GetMovieCallback() {
-                @Override
-                public void onComplete(List<MovieItem> list) {
-                    adapter.setData(list);
-                }
-            }).execute();
+            MainPresenter presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()));
+            presenter.attach(this);
+            presenter.present();
 
 
         } else {
@@ -132,9 +136,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
             emptyStateTextView.setText(R.string.emptytext);
-            Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
-
-
 
         }
     }
@@ -270,6 +271,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     }
 
+    @Override
+    public void showMovieItems(List<MovieItem> movieItems) {
+        adapter.setData(movieItems);
+    }
 }
 
 
