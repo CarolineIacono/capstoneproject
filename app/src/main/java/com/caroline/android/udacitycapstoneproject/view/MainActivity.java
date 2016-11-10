@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     private Tracker tracker;
     private MovieListAdapter adapter;
+    private MainPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,34 +82,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
 
-        //check if the device is connected to the internet
 
 
         adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
             @Override
             public void onMovieClicked(MovieItem movieItem) {
 
+                presenter.showMovie(movieItem);
 
-                if (twoPane) {
-                    String key = movieItem.getImdbId();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("key", key);
-                    MovieSummaryFragment fragment = new MovieSummaryFragment();
-                    fragment.setArguments(bundle);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.detail_container_large, fragment)
-                            .commit();
-
-                } else {
-                    String key = movieItem.getImdbId();
-                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                    intent.putExtra("key", key);
-                    startActivity(intent);
-                }
-                tracker.send(new HitBuilders.EventBuilder()
-                        .setCategory("Action")
-                        .setAction("Load Detail Screen")
-                        .build());
             }
         });
         recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
@@ -129,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         };
 
-        MainPresenter presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()), connectivityProvider);
+        presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()), connectivityProvider);
         presenter.attach(this);
         presenter.present();
 
@@ -272,12 +253,42 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     @Override
-    public void showDisconnected() {
+    public void showDisconnectedWhenDisplayList() {
         emptyStateTextView = (TextView) findViewById(R.id.empty_view);
 
         emptyStateTextView.setText(R.string.emptytext);
 
 
+    }
+
+    @Override
+    public void showMovie(MovieItem movieItem) {
+        if (twoPane) {
+            String key = movieItem.getImdbId();
+            Bundle bundle = new Bundle();
+            bundle.putString("key", key);
+            MovieSummaryFragment fragment = new MovieSummaryFragment();
+            fragment.setArguments(bundle);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail_container_large, fragment)
+                    .commit();
+
+        } else {
+            String key = movieItem.getImdbId();
+            Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+            intent.putExtra("key", key);
+            startActivity(intent);
+        }
+        tracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Action")
+                .setAction("Load Detail Screen")
+                .build());
+
+    }
+
+    @Override
+    public void showDisconnectWhenSelected() {
+        Toast.makeText(this, "We are disconnected", Toast.LENGTH_LONG).show();
     }
 }
 

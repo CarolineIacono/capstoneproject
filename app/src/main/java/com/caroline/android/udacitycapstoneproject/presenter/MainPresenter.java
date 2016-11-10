@@ -47,7 +47,16 @@ public class MainPresenter {
                 }
             });
         } else {
-            view.showDisconnected();
+            view.showDisconnectedWhenDisplayList();
+        }
+
+    }
+
+    public void showMovie(MovieItem movieItem) {
+        if (connectivityProvider.isConnected()) {
+            view.showMovie(movieItem);
+        } else {
+            view.showDisconnectWhenSelected();
         }
 
     }
@@ -55,7 +64,11 @@ public class MainPresenter {
     public interface View {
         void showMovieItems(List<MovieItem> movieItems);
 
-        void showDisconnected();
+        void showDisconnectedWhenDisplayList();
+
+        void showMovie(MovieItem movieItem);
+
+        void showDisconnectWhenSelected();
     }
 }
 
