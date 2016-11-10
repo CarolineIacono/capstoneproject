@@ -26,7 +26,10 @@ public class MainPresenter {
 
     public void attach(View view) {
         this.view = view;
+    }
 
+    public void detach() {
+        view = null;
     }
 
 
@@ -41,7 +44,9 @@ public class MainPresenter {
                     foregroundExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            view.showMovieItems(movieItems);
+                            if (view != null) {
+                                view.showMovieItems(movieItems);
+                            }
                         }
                     });
                 }
