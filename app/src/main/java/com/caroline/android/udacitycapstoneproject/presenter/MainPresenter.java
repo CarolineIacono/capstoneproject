@@ -6,6 +6,7 @@ import com.caroline.android.udacitycapstoneproject.model.DataUtil;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executor;
 
 /**
@@ -16,6 +17,8 @@ public class MainPresenter {
     private final Executor foregroundExecutor;
     private View view;
     private final ConnectivityProvider connectivityProvider;
+    private String currentLatitude;
+    private String currentLongitude;
 
 
     public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor, ConnectivityProvider connectivityProvider) {
@@ -66,6 +69,16 @@ public class MainPresenter {
 
     }
 
+    public void handleShowTheatersRequest() {
+        String url = String.format(Locale.ENGLISH, "geo:%s, %s?q=theater", currentLatitude, currentLongitude);
+        view.showTheatersNearMe(url);
+    }
+
+    public void updateLocation(String lat, String lon) {
+        currentLatitude = lat;
+        currentLongitude = lon;
+    }
+
     public interface View {
         void showMovieItems(List<MovieItem> movieItems);
 
@@ -74,6 +87,8 @@ public class MainPresenter {
         void showMovie(MovieItem movieItem);
 
         void showDisconnectWhenSelected();
+
+        void showTheatersNearMe(String url);
     }
 }
 

@@ -35,7 +35,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.Executors;
 
 ;
@@ -163,14 +162,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         switch (item.getItemId()) {
             case R.id.fetch_button:
-                Uri location = Uri.parse(uri + "?q=theater");
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
 
-                String title = getString(R.string.select_map);
-                Intent chooser = Intent.createChooser(mapIntent, title);
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(chooser);
-                }
+                presenter.handleShowTheatersRequest();
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(MainActivity.this, LoaderActivity.class);
@@ -208,9 +201,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
             Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             if (lastLocation != null) {
-                String longitude = String.valueOf(lastLocation.getLongitude());
-                String latitude = String.valueOf(lastLocation.getLatitude());
-                uri = String.format(Locale.ENGLISH, "geo:" + latitude + ", " + longitude);
+                presenter.updateLocation(String.valueOf(lastLocation.getLatitude()), String.valueOf(lastLocation.getLongitude()));
             }
 //
         }
@@ -295,6 +286,18 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void showDisconnectWhenSelected() {
         Toast.makeText(this, "We are disconnected", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showTheatersNearMe(String url) {
+        Uri location = Uri.parse(url);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+
+        String title = getString(R.string.select_map);
+        Intent chooser = Intent.createChooser(mapIntent, title);
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        }
     }
 }
 
