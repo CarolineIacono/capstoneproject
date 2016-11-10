@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.caroline.android.udacitycapstoneproject.R;
 import com.caroline.android.udacitycapstoneproject.concurrency.UiExecutor;
+import com.caroline.android.udacitycapstoneproject.model.ConnectivityProvider;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 import com.caroline.android.udacitycapstoneproject.presenter.MainPresenter;
 import com.caroline.android.udacitycapstoneproject.view.loaders.LoaderActivity;
@@ -81,65 +82,59 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
 
         //check if the device is connected to the internet
-        ConnectivityManager cm =
-                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
-
-        //if it's connected, set the adapter and load depending on whether it's in single or dual pane mode
-
-        if (isConnected) {
 
 
-            adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
-                @Override
-                public void onMovieClicked(MovieItem movieItem) {
+        adapter = new MovieListAdapter(this, new MovieListAdapter.OnMovieClickListener() {
+            @Override
+            public void onMovieClicked(MovieItem movieItem) {
 
 
-                    if (twoPane) {
-                        String key = movieItem.getImdbId();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("key", key);
-                        MovieSummaryFragment fragment = new MovieSummaryFragment();
-                        fragment.setArguments(bundle);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.detail_container_large, fragment)
-                                .commit();
+                if (twoPane) {
+                    String key = movieItem.getImdbId();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", key);
+                    MovieSummaryFragment fragment = new MovieSummaryFragment();
+                    fragment.setArguments(bundle);
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.detail_container_large, fragment)
+                            .commit();
 
-                    } else {
-                        String key = movieItem.getImdbId();
-                        Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                        intent.putExtra("key", key);
-                        startActivity(intent);
-                    }
-                    tracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("Action")
-                            .setAction("Load Detail Screen")
-                            .build());
+                } else {
+                    String key = movieItem.getImdbId();
+                    Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+                    intent.putExtra("key", key);
+                    startActivity(intent);
                 }
-            });
-            recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            recyclerView.setLayoutManager(layoutManager);
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Load Detail Screen")
+                        .build());
+            }
+        });
+        recyclerView = (android.support.v7.widget.RecyclerView) findViewById(R.id.movieList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
 
-            recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
 
-            MainPresenter presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()));
-            presenter.attach(this);
-            presenter.present();
+        ConnectivityProvider connectivityProvider = new ConnectivityProvider() {
+            @Override
+            public boolean isConnected() {
+                ConnectivityManager cm =
+                        (ConnectivityManager) MainActivity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+                NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+                return activeNetwork != null &&
+                        activeNetwork.isConnectedOrConnecting();
+            }
+        };
+
+        MainPresenter presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()), connectivityProvider);
+        presenter.attach(this);
+        presenter.present();
 
 
-        } else {
-
-            emptyStateTextView = (TextView) findViewById(R.id.empty_view);
-
-            emptyStateTextView.setText(R.string.emptytext);
-
-        }
     }
-
 
 
     //create the GoogleAPIClient for the Location service
@@ -274,6 +269,15 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public void showMovieItems(List<MovieItem> movieItems) {
         adapter.setData(movieItems);
+    }
+
+    @Override
+    public void showDisconnected() {
+        emptyStateTextView = (TextView) findViewById(R.id.empty_view);
+
+        emptyStateTextView.setText(R.string.emptytext);
+
+
     }
 }
 

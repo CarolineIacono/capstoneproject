@@ -1,6 +1,7 @@
 package com.caroline.android.udacitycapstoneproject.presenter;
 
 import com.caroline.android.udacitycapstoneproject.concurrency.UiExecutor;
+import com.caroline.android.udacitycapstoneproject.model.ConnectivityProvider;
 import com.caroline.android.udacitycapstoneproject.model.DataUtil;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
@@ -14,10 +15,13 @@ public class MainPresenter {
     private final Executor backgroundExecutor;
     private final Executor foregroundExecutor;
     private View view;
+    private final ConnectivityProvider connectivityProvider;
 
-    public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor) {
+
+    public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor, ConnectivityProvider connectivityProvider) {
         this.backgroundExecutor = backgroundExecutor;
         this.foregroundExecutor = foregroundExecutor;
+        this.connectivityProvider = connectivityProvider;
     }
 
     public void attach(View view) {
@@ -27,23 +31,31 @@ public class MainPresenter {
 
 
     public void present() {
-        backgroundExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                final List<MovieItem> movieItems = DataUtil.fetchMovieItems();
+        if (connectivityProvider.isConnected()) {
 
-                foregroundExecutor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        view.showMovieItems(movieItems);
-                    }
-                });
-            }
-        });
+            backgroundExecutor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    final List<MovieItem> movieItems = DataUtil.fetchMovieItems();
+
+                    foregroundExecutor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            view.showMovieItems(movieItems);
+                        }
+                    });
+                }
+            });
+        } else {
+            view.showDisconnected();
+        }
+
     }
 
     public interface View {
         void showMovieItems(List<MovieItem> movieItems);
+
+        void showDisconnected();
     }
 }
 
