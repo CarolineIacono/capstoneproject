@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.caroline.android.udacitycapstoneproject.R;
 import com.caroline.android.udacitycapstoneproject.concurrency.UiExecutor;
 import com.caroline.android.udacitycapstoneproject.model.ConnectivityProvider;
+import com.caroline.android.udacitycapstoneproject.model.MovieDao;
+import com.caroline.android.udacitycapstoneproject.model.MovieDaoActual;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 import com.caroline.android.udacitycapstoneproject.presenter.MainPresenter;
 import com.caroline.android.udacitycapstoneproject.view.loaders.LoaderActivity;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private Tracker tracker;
     private MovieListAdapter adapter;
     private MainPresenter presenter;
+    private MovieDao movieDao = new MovieDaoActual();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         };
 
-        presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()), connectivityProvider);
+        presenter = new MainPresenter(Executors.newSingleThreadExecutor(), new UiExecutor(new Handler()), connectivityProvider, movieDao);
         presenter.attach(this);
         presenter.present();
 

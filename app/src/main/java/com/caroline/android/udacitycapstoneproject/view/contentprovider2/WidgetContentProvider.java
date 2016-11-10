@@ -7,7 +7,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
-import com.caroline.android.udacitycapstoneproject.model.DataUtil;
+import com.caroline.android.udacitycapstoneproject.model.MovieDao;
+import com.caroline.android.udacitycapstoneproject.model.MovieDaoActual;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class WidgetContentProvider extends ContentProvider {
         sURIMatcher.addURI(AUTHORITY, TABLE_TOP100, 0);
     }
 
+    private MovieDao movieDao = new MovieDaoActual();
+
     @Override
     public boolean onCreate() {
         return true;
@@ -36,7 +39,7 @@ public class WidgetContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
         // go fetch top 100
-        final List<MovieItem> movies = DataUtil.fetchMovieItems();
+        final List<MovieItem> movies = movieDao.fetchMovieItems();
 
         Cursor cursor = new MovieItemCursor(movies);
         return cursor;

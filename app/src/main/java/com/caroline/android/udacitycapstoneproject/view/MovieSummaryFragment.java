@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.caroline.android.udacitycapstoneproject.model.DataUtil;
+import com.caroline.android.udacitycapstoneproject.model.MovieDao;
+import com.caroline.android.udacitycapstoneproject.model.MovieDaoActual;
 import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
 import com.caroline.android.udacitycapstoneproject.R;
 import com.squareup.picasso.Picasso;
@@ -23,6 +24,7 @@ public class MovieSummaryFragment extends Fragment {
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String DETAIL_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/by_id/";
     private MovieSummary movieSummaryObject;
+    private MovieDao movieDao = new MovieDaoActual();
 
     public MovieSummaryFragment() {
 
@@ -56,7 +58,7 @@ public class MovieSummaryFragment extends Fragment {
         @Override
         protected MovieSummary doInBackground(String... params) {
             String urlString = params[0];
-            return DataUtil.fetchMovieSummary(urlString);
+            return movieDao.fetchMovieSummary(urlString);
         }
 
         @Override

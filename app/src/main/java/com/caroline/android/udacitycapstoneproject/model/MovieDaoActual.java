@@ -3,9 +3,6 @@ package com.caroline.android.udacitycapstoneproject.model;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.caroline.android.udacitycapstoneproject.model.MovieItem;
-import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,22 +19,24 @@ import java.util.List;
 /**
  * Created by carolinestewart on 6/8/16.
  */
-public class DataUtil {
+public class MovieDaoActual implements MovieDao {
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String TOP_MOVIE_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/top_movies.json";
 
-    public static List<MovieItem> fetchMovieItems() {
+    @Override
+    public List<MovieItem> fetchMovieItems() {
         String movieJsonStr = fetchJson(TOP_MOVIE_URL);
         return parseMovieItems(movieJsonStr);
     }
 
-    public static MovieSummary fetchMovieSummary(String urlString) {
+    @Override
+    public MovieSummary fetchMovieSummary(String urlString) {
         return parseMovieSummary(fetchJson(urlString));
     }
 
 
     @Nullable
-    private static String fetchJson(String urlString) {
+    private String fetchJson(String urlString) {
         Integer result = 0;
 
         HttpURLConnection urlConnection = null;
@@ -72,7 +71,7 @@ public class DataUtil {
 
 
         } catch (IOException e) {
-            Log.e("DataUtil", "Error ", e);
+            Log.e("MovieDao", "Error ", e);
             jsonStr = null;
         } finally {
             if (urlConnection != null) {
@@ -82,14 +81,14 @@ public class DataUtil {
                 try {
                     reader.close();
                 } catch (final IOException e) {
-                    Log.e("DataUtil", "Error closing stream", e);
+                    Log.e("MovieDao", "Error closing stream", e);
                 }
             }
         }
         return jsonStr;
     }
 
-    private static List<MovieItem> parseMovieItems(String result) {
+    private List<MovieItem> parseMovieItems(String result) {
 
 
         List<MovieItem> items = null;
@@ -142,7 +141,7 @@ public class DataUtil {
         return items;
     }
 
-    private static MovieSummary parseMovieSummary(String result) {
+    private MovieSummary parseMovieSummary(String result) {
 
         try {
             JSONObject response = new JSONObject(result);
@@ -155,7 +154,7 @@ public class DataUtil {
 
             StringBuilder sb = new StringBuilder();
             JSONArray genre = response.optJSONArray("genre");
-            for(int i = 0; i < genre.length(); i++) {
+            for (int i = 0; i < genre.length(); i++) {
                 String genres = (String) genre.get(i);
                 sb.append(genres + " ");
             }
@@ -164,7 +163,7 @@ public class DataUtil {
 
             StringBuilder sbActor = new StringBuilder();
             JSONArray actor = response.optJSONArray("actors");
-            for(int i = 0; i < actor.length(); i++) {
+            for (int i = 0; i < actor.length(); i++) {
                 String actors = (String) actor.get(i);
                 sbActor.append(actors + " ");
             }
@@ -172,7 +171,7 @@ public class DataUtil {
 
             StringBuilder sbLanguage = new StringBuilder();
             JSONArray language = response.optJSONArray("language");
-            for(int i = 0; i < language.length(); i++) {
+            for (int i = 0; i < language.length(); i++) {
                 String languages = (String) language.get(i);
                 sbLanguage.append(languages + " ");
             }

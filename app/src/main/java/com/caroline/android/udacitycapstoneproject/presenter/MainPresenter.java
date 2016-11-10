@@ -2,7 +2,7 @@ package com.caroline.android.udacitycapstoneproject.presenter;
 
 import com.caroline.android.udacitycapstoneproject.concurrency.UiExecutor;
 import com.caroline.android.udacitycapstoneproject.model.ConnectivityProvider;
-import com.caroline.android.udacitycapstoneproject.model.DataUtil;
+import com.caroline.android.udacitycapstoneproject.model.MovieDao;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
 import java.util.List;
@@ -19,12 +19,14 @@ public class MainPresenter {
     private final ConnectivityProvider connectivityProvider;
     private String currentLatitude;
     private String currentLongitude;
+    private final MovieDao movieDao;
 
 
-    public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor, ConnectivityProvider connectivityProvider) {
+    public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor, ConnectivityProvider connectivityProvider, MovieDao movieDao) {
         this.backgroundExecutor = backgroundExecutor;
         this.foregroundExecutor = foregroundExecutor;
         this.connectivityProvider = connectivityProvider;
+        this.movieDao = movieDao;
     }
 
     public void attach(View view) {
@@ -42,7 +44,7 @@ public class MainPresenter {
             backgroundExecutor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    final List<MovieItem> movieItems = DataUtil.fetchMovieItems();
+                    final List<MovieItem> movieItems = movieDao.fetchMovieItems();
 
                     foregroundExecutor.execute(new Runnable() {
                         @Override
