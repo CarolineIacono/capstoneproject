@@ -31,16 +31,15 @@ public class WidgetContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+//        MovieApplication application = (MovieApplication) getApplication();
+//        application.getComponent().inject(this);
         return true;
     }
 
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-
-        // go fetch top 100
         final List<MovieItem> movies = movieDao.fetchMovieItems();
-
         Cursor cursor = new MovieItemCursor(movies);
         return cursor;
     }
@@ -49,7 +48,6 @@ public class WidgetContentProvider extends ContentProvider {
     @Override
     public String getType(Uri uri) {
         return "vnd.android.cursor.dir/com.caroline.android.udacitycapstoneproject.MediaItem";
-
     }
 
     @Nullable

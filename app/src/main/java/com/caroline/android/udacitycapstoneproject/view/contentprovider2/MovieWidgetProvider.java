@@ -14,13 +14,11 @@ public class MovieWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                          int[] appWidgetIds) {
 
-        // Get all ids
         ComponentName thisWidget = new ComponentName(context,
                 MovieWidgetProvider.class);
 
         int[] allWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget);
 
-        // start service that updates widget
         context.startService(WidgetService.createIntent(context, allWidgetIds));
     }
 }

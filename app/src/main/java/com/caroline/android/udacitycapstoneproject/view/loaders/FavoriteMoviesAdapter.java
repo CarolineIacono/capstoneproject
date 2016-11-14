@@ -13,9 +13,6 @@ import com.caroline.android.udacitycapstoneproject.model.FavoriteMovie;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by carolinestewart on 11/4/16.
- */
 public class FavoriteMoviesAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     private List<FavoriteMovie> favoriteMovies = new ArrayList<FavoriteMovie>();

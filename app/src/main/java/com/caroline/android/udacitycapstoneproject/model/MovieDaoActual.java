@@ -2,7 +2,8 @@ package com.caroline.android.udacitycapstoneproject.model;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
-
+import dagger.Module;
+import dagger.Provides;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,36 +17,31 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by carolinestewart on 6/8/16.
- */
+@Module
 public class MovieDaoActual implements MovieDao {
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String TOP_MOVIE_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/top_movies.json";
 
-    @Override
+    @Provides
     public List<MovieItem> fetchMovieItems() {
         String movieJsonStr = fetchJson(TOP_MOVIE_URL);
         return parseMovieItems(movieJsonStr);
     }
 
     @Override
+    @Provides
     public MovieSummary fetchMovieSummary(String urlString) {
         return parseMovieSummary(fetchJson(urlString));
     }
 
-
     @Nullable
     private String fetchJson(String urlString) {
         Integer result = 0;
-
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-
         String jsonStr = null;
 
         try {
-
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -69,7 +65,6 @@ public class MovieDaoActual implements MovieDao {
             }
             jsonStr = buffer.toString();
 
-
         } catch (IOException e) {
             Log.e("MovieDao", "Error ", e);
             jsonStr = null;
@@ -89,10 +84,7 @@ public class MovieDaoActual implements MovieDao {
     }
 
     private List<MovieItem> parseMovieItems(String result) {
-
-
         List<MovieItem> items = null;
-
 
         try {
             JSONArray response = new JSONArray(result);
@@ -103,37 +95,25 @@ public class MovieDaoActual implements MovieDao {
                     JSONObject post = response.getJSONObject(i);
                     MovieItem item = new MovieItem();
 
-
                     String title = post.optString("title");
                     item.setTitle(title);
-
                     String rank = post.optString("rank");
                     item.setRank(rank);
-
                     String year = post.optString("year");
                     item.setYear(year);
-
                     String poster = post.optString("poster");
                     item.setPoster(poster);
-
                     String imdbLink = post.optString("imdbLink");
                     item.setImdbLink(imdbLink);
-
                     String imdbRating = post.optString("imdbRating");
                     item.setImdbRating(imdbRating);
-
                     String imdbVotes = post.optString("imdbVotes");
                     item.setImdbVotes(imdbVotes);
-
                     String imdbId = post.optString("imdbId");
                     item.setImdbId(imdbId);
-
-
                     items.add(item);
-
                 }
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -145,9 +125,7 @@ public class MovieDaoActual implements MovieDao {
 
         try {
             JSONObject response = new JSONObject(result);
-
             MovieSummary item = new MovieSummary();
-
 
             String title = response.optString("title");
             item.setTitle(title);
@@ -159,7 +137,6 @@ public class MovieDaoActual implements MovieDao {
                 sb.append(genres + " ");
             }
             item.setGenre(sb);
-
 
             StringBuilder sbActor = new StringBuilder();
             JSONArray actor = response.optJSONArray("actors");
@@ -175,10 +152,7 @@ public class MovieDaoActual implements MovieDao {
                 String languages = (String) language.get(i);
                 sbLanguage.append(languages + " ");
             }
-
-
             item.setLanguage(sbLanguage);
-
 
             String year = response.optString("year");
             item.setYear(year);
@@ -207,7 +181,6 @@ public class MovieDaoActual implements MovieDao {
             String director = response.optString("director");
             item.setDirector(director);
 
-
             String writer = response.optString("writer");
             item.setWriter(writer);
 
@@ -232,7 +205,5 @@ public class MovieDaoActual implements MovieDao {
             e.printStackTrace();
         }
         return null;
-
     }
-
 }

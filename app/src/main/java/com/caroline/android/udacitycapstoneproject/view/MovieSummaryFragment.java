@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.caroline.android.udacitycapstoneproject.model.MovieDao;
-import com.caroline.android.udacitycapstoneproject.model.MovieDaoActual;
-import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
+import com.caroline.android.udacitycapstoneproject.MovieApplication;
 import com.caroline.android.udacitycapstoneproject.R;
+import com.caroline.android.udacitycapstoneproject.model.MovieDao;
+import com.caroline.android.udacitycapstoneproject.model.MovieSummary;
 import com.squareup.picasso.Picasso;
+
+import javax.inject.Inject;
 
 /**
  * Created by carolinestewart on 10/26/16.
@@ -23,34 +25,23 @@ public class MovieSummaryFragment extends Fragment {
 
     private static final String COMMIT_ID = "e50bcf43d142b2397f815f5d529d232f944f23f0";
     private static final String DETAIL_URL = "https://raw.githubusercontent.com/MercuryIntermedia/Sample_Json_Movies/" + COMMIT_ID + "/by_id/";
-    private MovieSummary movieSummaryObject;
-    private MovieDao movieDao = new MovieDaoActual();
+    @Inject MovieDao movieDao;
 
     public MovieSummaryFragment() {
-
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
+        MovieApplication application = (MovieApplication) getActivity().getApplication();
+        application.getComponent().inject(this);
         super.onCreate(savedInstanceState);
-
-
-
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-
-//check if I already have a MovieSummary object
         String key = getArguments().getString("key");
         new MovieSummaryFetchTask().execute(DETAIL_URL + key + ".json");
-
         return inflater.inflate(R.layout.details_screen, container, false);
-
-
     }
 
     public class MovieSummaryFetchTask extends AsyncTask<String, Void, MovieSummary> {
@@ -114,11 +105,10 @@ public class MovieSummaryFragment extends Fragment {
             language.setText(movieSummary.getLanguage());
 
             Picasso.with(getContext())
-                    .load(movieSummary.getPoster())
-                    .into((ImageView) getView().findViewById(R.id.poster));
+                   .load(movieSummary.getPoster())
+                   .into((ImageView) getView().findViewById(R.id.poster));
         }
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -127,8 +117,6 @@ public class MovieSummaryFragment extends Fragment {
 
     @Override
     public void onPause() {
-
-
         super.onPause();
     }
 }

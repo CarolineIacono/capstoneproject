@@ -15,17 +15,13 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
 
-
         if (getSupportFragmentManager().findFragmentById(R.id.details_container) == null) {
-
-
             MovieSummaryFragment fragment = new MovieSummaryFragment();
             fragment.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(R.id.details_container, fragment).commit();
         }
     }
-
-    }
+}
 
 
 

@@ -5,6 +5,9 @@ import com.caroline.android.udacitycapstoneproject.model.ConnectivityProvider;
 import com.caroline.android.udacitycapstoneproject.model.MovieDao;
 import com.caroline.android.udacitycapstoneproject.model.MovieItem;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executor;
@@ -21,7 +24,6 @@ public class MainPresenter {
     private String currentLongitude;
     private final MovieDao movieDao;
 
-
     public MainPresenter(Executor backgroundExecutor, UiExecutor foregroundExecutor, ConnectivityProvider connectivityProvider, MovieDao movieDao) {
         this.backgroundExecutor = backgroundExecutor;
         this.foregroundExecutor = foregroundExecutor;
@@ -36,7 +38,6 @@ public class MainPresenter {
     public void detach() {
         view = null;
     }
-
 
     public void present() {
         if (connectivityProvider.isConnected()) {
@@ -59,7 +60,6 @@ public class MainPresenter {
         } else {
             view.showDisconnectedWhenDisplayList();
         }
-
     }
 
     public void showMovie(MovieItem movieItem) {
@@ -68,7 +68,6 @@ public class MainPresenter {
         } else {
             view.showDisconnectWhenSelected();
         }
-
     }
 
     public void handleShowTheatersRequest() {
@@ -83,14 +82,32 @@ public class MainPresenter {
 
     public interface View {
         void showMovieItems(List<MovieItem> movieItems);
-
         void showDisconnectedWhenDisplayList();
-
         void showMovie(MovieItem movieItem);
-
         void showDisconnectWhenSelected();
-
         void showTheatersNearMe(String url);
+    }
+
+    private static class NullInvocationHandler implements InvocationHandler {
+
+        @Override
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            Class<?> returnType = method.getReturnType();
+            if (returnType == Byte.TYPE || returnType == Short.TYPE || returnType == Integer.TYPE ||
+                returnType == Long.TYPE || returnType == Float.TYPE || returnType == Double.TYPE ||
+                returnType == Character.TYPE) {
+                return 0;
+            } else if (returnType == Boolean.TYPE) {
+                return false;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public static <T> T create(Class<T> nullObjClazz) {
+        Object proxy = Proxy.newProxyInstance(nullObjClazz.getClassLoader(), new Class<?>[]{nullObjClazz}, new NullInvocationHandler());
+        return nullObjClazz.cast(proxy);
     }
 }
 

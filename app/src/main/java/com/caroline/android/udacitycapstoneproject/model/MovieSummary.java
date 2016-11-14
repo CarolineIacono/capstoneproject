@@ -25,7 +25,6 @@ public class MovieSummary  {
     String country;
     String imdbLink;
 
-
     public MovieSummary() {
         super();
     }
@@ -39,10 +38,6 @@ public class MovieSummary  {
         this.imdbLink = imdbLink;
     }
 
-
-
-
-
     public String getYear() {
         return year;
     }
@@ -50,7 +45,6 @@ public class MovieSummary  {
     public void setYear(String year) {
         this.year = year;
     }
-
 
     public String getRated() {
         return rated;
@@ -60,7 +54,6 @@ public class MovieSummary  {
         this.rated = rated;
     }
 
-
     public String getReleased() {
         return released;
     }
@@ -69,7 +62,6 @@ public class MovieSummary  {
         this.released = released;
     }
 
-
     public String getRuntime() {
         return runtime;
     }
@@ -77,7 +69,6 @@ public class MovieSummary  {
     public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
-
 
     public StringBuilder getGenre() {
         return genre;
@@ -95,7 +86,6 @@ public class MovieSummary  {
         this.language = language;
     }
 
-
     public String getDirector() {
         return director;
     }
@@ -103,7 +93,6 @@ public class MovieSummary  {
     public void setDirector(String director) {
         this.director = director;
     }
-
 
     public String getWriter() {
         return writer;
@@ -113,7 +102,6 @@ public class MovieSummary  {
         this.writer = writer;
     }
 
-
     public StringBuilder getActors() {
         return actors;
     }
@@ -122,7 +110,6 @@ public class MovieSummary  {
         this.actors = actors;
     }
 
-
     public String getPlot() {
         return plot;
     }
@@ -130,9 +117,6 @@ public class MovieSummary  {
     public void setPlot(String plot) {
         this.plot = plot;
     }
-
-
-
 
     public String getCountry() {
         return country;
@@ -146,7 +130,6 @@ public class MovieSummary  {
         this.imdbRating = imdbRating;
     }
 
-
     public String getAwards() {
         return awards;
     }
@@ -155,7 +138,6 @@ public class MovieSummary  {
         this.awards = awards;
     }
 
-
     public String getMetascore() {
         return metascore;
     }
@@ -163,7 +145,6 @@ public class MovieSummary  {
     public void setMetascore(String metascore) {
         this.metascore = metascore;
     }
-
 
     public String getPoster() {
         return poster;

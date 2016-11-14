@@ -23,7 +23,6 @@ public class WidgetService extends IntentService {
 
     public WidgetService() {
         super(TAG);
-
     }
 
     @Override
@@ -47,7 +46,6 @@ public class WidgetService extends IntentService {
             movies.add(item);
         }
 
-        // pick a random movie
         Random random = new Random();
         MovieItem movieItem = movies.get(random.nextInt(movies.size()));
 
@@ -56,25 +54,12 @@ public class WidgetService extends IntentService {
         for (int widgetId : widgetIds) {
 
             RemoteViews remoteViews = new RemoteViews(getApplicationContext().getPackageName(),
-                    R.layout.movie_widget);
+                                                      R.layout.movie_widget);
 
-//
-//
             remoteViews.setTextViewText(R.id.widget_title, movieItem.getTitle());
             remoteViews.setTextViewText(R.id.widget_year, movieItem.getYear());
             remoteViews.setTextViewText(R.id.widget_director, movieItem.getImdbRating());
 
-
-
-            // Register an onClickListener
-//            Intent intent = new Intent(context, MovieWidgetProvider.class);
-//
-//            intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-//            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-//
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(context,
-//                    0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//            remoteViews.setOnClickPendingIntent(R.id.widget_title, pendingIntent);
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }

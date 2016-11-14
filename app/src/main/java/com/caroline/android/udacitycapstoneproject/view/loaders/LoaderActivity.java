@@ -12,11 +12,9 @@ import com.caroline.android.udacitycapstoneproject.model.FavoriteMovie;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by carolinestewart on 11/4/16.
- */
-public class LoaderActivity  extends FragmentActivity implements LoaderManager.LoaderCallbacks<List<FavoriteMovie>> {
+public class LoaderActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<List<FavoriteMovie>> {
     FavoriteMoviesAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +24,17 @@ public class LoaderActivity  extends FragmentActivity implements LoaderManager.L
         movieListView.setAdapter(adapter);
         getSupportLoaderManager().initLoader(1, null, this).forceLoad();
     }
+
     @Override
     public Loader<List<FavoriteMovie>> onCreateLoader(int id, Bundle args) {
         return new FavoriteMovieLoader(LoaderActivity.this);
     }
+
     @Override
     public void onLoadFinished(Loader<List<FavoriteMovie>> loader, List<FavoriteMovie> data) {
         adapter.setFavoriteMovies(data);
     }
+
     @Override
     public void onLoaderReset(Loader<List<FavoriteMovie>> loader) {
         adapter.setFavoriteMovies(new ArrayList<FavoriteMovie>());
